@@ -6,6 +6,7 @@
 #define TXPIN PA12
 
 STM32_CAN CANBUS(RXPIN, TXPIN);
+CAN_message_t tx{}, rx{};
 
 void problem(ERORI eroare);
 
@@ -25,7 +26,6 @@ void setup()
     problem(bug);
   }
 
-  CAN_message_t tx{}, rx{};
   tx.id = 0x123;
   tx.len = 1;
   tx.buf[0] = 0xAA;
@@ -55,4 +55,14 @@ void setup()
 
 void loop()
 {
+  if(CANBUS.read(rx))
+  switch (rx.id)
+  {
+  case 0x200:
+    PACK_VI_SOCH(rx);
+    break;
+  
+  default:
+    break;
+  }
 }

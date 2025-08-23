@@ -12,5 +12,6 @@ enum ERORI
 ERORI bug = NICIO_EROARE;
 
 void problem(ERORI eroare);
+void PACK_VI_SOCH(const CAN_message_t &rx);
 
 #endif
