@@ -1,4 +1,4 @@
-# SolarCar 
+<img width="3480" height="1405" alt="image" src="https://github.com/user-attachments/assets/a7f6f29d-5bc0-4537-9d80-3c046af64c83" /># SolarCar 
 
 Salut, asta e repo-ul pe care lucram acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
@@ -18,6 +18,13 @@ build_flags =
 monitor_speed = 115200
 ```
 Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de resurse / clasa e in proiect
+
+## De ce fac asta de acum?
+BMS-ul are o gramada de semnale si ideea e sa il configuram astfel incat sa ne dea doar ce ne trebuie pentru masina, nu tot ce are el.
+<img width="3480" height="1405" alt="image" src="https://github.com/user-attachments/assets/5067c58c-e3ee-4f24-b65f-9255a7376679" />
+Nu am gasit mesaje standardizate asa ca momentan, o sa imi inchipui ca o sa configuram noi BMS ul incat sa ne dea doar strictul necesar. more research to come
+In plus, pe langa BMS vor mai fi integrate si alte lucruri de safety si control: butoanele, pedalele, masurarea vitezei, PDM-ul si dashboard-ul. Toate astea trebuie sa vorbeasca intre ele prin CAN. 
+
 
 ## Ce merge acum (IN TEORIE)
 - Initializam magistrala CAN pe STM32 si am testat ca functioneaza in loopback  
