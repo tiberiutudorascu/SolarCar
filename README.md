@@ -2,7 +2,7 @@
 
 Salut, asta e repo-ul pe care lucram acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
-Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini
+Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini urmatoarea chestie:
 ```
 [env:disco_l4s5i_iot01a]
 platform = ststm32
@@ -34,5 +34,5 @@ Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de res
 - Sa separam partea de parsare de partea de afisare ca sa putem salva/loga mai usor  
 - Sa documentam clar structura mesajelor in repo
   may god have mercy
-  linkuri de ajutor moral si tehnic: https://www.orionbms.com/downloads/misc/editing_canbus_messages.pdf
-  biblia cu toate datele :           https://www.orionbms.com/manuals/utility/
+  Linkuri de ajutor moral si tehnic: https://www.orionbms.com/downloads/misc/editing_canbus_messages.pdf
+  Biblia cu toate datele :           https://www.orionbms.com/manuals/utility/
