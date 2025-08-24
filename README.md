@@ -3,7 +3,8 @@
 Salut, asta e repo-ul pe care lucram acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
 Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini
-'''[env:disco_l4s5i_iot01a]
+```
+[env:disco_l4s5i_iot01a]
 platform = ststm32
 board = disco_l4s5i_iot01a
 framework = arduino
@@ -14,7 +15,8 @@ lib_deps =
 build_flags = 
   -DHAL_CAN_MODULE_ENABLED
 
-monitor_speed = 115200'''
+monitor_speed = 115200
+```
 Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de resurse / clasa e in proiect
 
 ## Ce merge acum
