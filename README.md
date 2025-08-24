@@ -16,4 +16,7 @@ Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
 ## Ce urmeaza
 - Sa adaugam suport si pentru alte mesaje CAN  
 - Sa separam partea de parsare de partea de afisare ca sa putem salva/loga mai usor  
-- Sa documentam clar structura mesajelor in repo  
+- Sa documentam clar structura mesajelor in repo
+  may god have mercy
+  linkuri de ajutor moral si tehnic: https://www.orionbms.com/downloads/misc/editing_canbus_messages.pdf
+  biblia cu toate datele : https://www.orionbms.com/manuals/utility/
