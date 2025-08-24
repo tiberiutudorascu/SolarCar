@@ -1,4 +1,4 @@
-<img width="3480" height="1405" alt="image" src="https://github.com/user-attachments/assets/a7f6f29d-5bc0-4537-9d80-3c046af64c83" /># SolarCar 
+# SolarCar 
 
 Salut, asta e repo-ul pe care lucram acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
