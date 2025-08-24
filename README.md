@@ -1,6 +1,6 @@
 # SolarCar 
 
-Salut, asta e repo-ul pe care lucram acum pentru partea de CAN pe low voltage.  
+Salut, asta e repo-ul pe care lucrez acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
 Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini urmatoarea chestie:
 ```
