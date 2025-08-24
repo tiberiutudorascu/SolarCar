@@ -2,9 +2,6 @@
 #include <STM32_CAN.h>
 #include "headers.hpp"
 
-static inline int16_t be16s(const uint8_t *p) { return int16_t((uint16_t(p[0]) << 8) | uint16_t(p[1])); }
-static inline uint16_t be16u(const uint8_t *p) { return (uint16_t(p[0]) << 8) | uint16_t(p[1]); }
-
 constexpr double VOLT_SCALE = 0.1; // 1 LSB = 0.1 V
 constexpr double CURR_SCALE = 0.1; // 1 LSB = 0.1 A
 constexpr double SOC_SCALE = 0.5;  // 1 LSB = 0.5 %
