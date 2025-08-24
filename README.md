@@ -19,7 +19,7 @@ monitor_speed = 115200
 ```
 Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de resurse / clasa e in proiect
 
-## Ce merge acum
+## Ce merge acum (IN TEORIE)
 - Initializam magistrala CAN pe STM32 si am testat ca functioneaza in loopback  
 - Avem tratament de erori la filtru, transmitere si primire  
 - Citim mesajul cu ID 0x200 de la BMS si il decodam:
@@ -33,6 +33,7 @@ Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de res
 - Sa adaugam suport si pentru alte mesaje CAN  
 - Sa separam partea de parsare de partea de afisare ca sa putem salva/loga mai usor  
 - Sa documentam clar structura mesajelor in repo
+- Efectiv tot restul softwareului ca asta nu e nici 1%
   may god have mercy
   Linkuri de ajutor moral si tehnic: https://www.orionbms.com/downloads/misc/editing_canbus_messages.pdf
   Biblia cu toate datele :           https://www.orionbms.com/manuals/utility/
