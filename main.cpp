@@ -9,7 +9,6 @@ STM32_CAN CANBUS(RXPIN, TXPIN);
 CAN_message_t tx{}, rx{};
 BMS myBMS(96, 3.0f, 4.2f, 150.0f, 0.5f, -20.0f, 60.0f, 70.0f, "Li-ion", 5000.0f);
 
-
 void problem(ERORI eroare);
 
 void setup()
