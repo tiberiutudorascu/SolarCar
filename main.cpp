@@ -7,6 +7,8 @@
 
 STM32_CAN CANBUS(RXPIN, TXPIN);
 CAN_message_t tx{}, rx{};
+BMS myBMS(96, 3.0f, 4.2f, 150.0f, 0.5f, -20.0f, 60.0f, 70.0f, "Li-ion", 5000.0f);
+
 
 void problem(ERORI eroare);
 
@@ -14,7 +16,6 @@ void setup()
 {
 
   Serial.begin(115200);
-
   CANBUS.enableLoopBack(true);
   CANBUS.begin();
   CANBUS.setBaudRate(500000);
@@ -36,7 +37,7 @@ void setup()
   }
   unsigned long startUpTime = millis();
   bool recieved = false;
-  while (millis() - startUpTime < 50)
+  while (millis() - startUpTime < 50) // TRB FREERTOS DAR MOMENTAN NU STIU SA L FOL BINE.
   {
     if (CANBUS.read(rx))
     {
@@ -55,14 +56,16 @@ void setup()
 
 void loop()
 {
-  if(CANBUS.read(rx))
-  switch (rx.id)
+  if (CANBUS.read(rx))
   {
-  case 0x200:
-    PACK_VI_SOCH(rx);
-    break;
-  
-  default:
-    break;
+    switch (rx.id)
+    {
+    case 0x03B:
+      myBMS.PACK_DATA(rx);
+      break;
+
+    default:
+      break;
+    }
   }
 }
