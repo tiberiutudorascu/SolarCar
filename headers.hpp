@@ -7,9 +7,9 @@ enum ERORI
     EROARE_PRIMIRE,
     EROARE_TRIMITERE,
     EROARE_FILTRU,
-    ALTA_EROAROE,
+    ALTA_EROARE,
 };
-ERORI bug = NICIO_EROARE;
+extern ERORI bug;
 
 void problem(ERORI eroare);
 void PACK_VI_SOCH(const CAN_message_t &rx);
@@ -28,12 +28,30 @@ private:
     float maxDischargeTemp;
     char cellType[16];
     float capacityWh;
-    static constexpr float VOLT_SCALE = 0.1; // 1 LSB = 0.1 V
-    static constexpr float CURR_SCALE = 0.1; // 1 LSB = 0.1 A
-    static constexpr float SOC_SCALE = 0.5;  // 1 LSB = 0.5 %
-    static constexpr float SOH_SCALE = 1.0;  // 1 LSB = 1 %
+    static inline int8_t lowestThemistor = 50;
+    static inline int8_t highestThermistor = -50;
+    static constexpr float VOLT_SCALE = 0.1f;     // 1 LSB = 0.1 V
+    static constexpr float CURR_SCALE = 0.1f;     // 1 LSB = 0.1 A
+    static constexpr float SOC_SCALE = 0.5f;      // 1 LSB = 0.5 %
+    static constexpr float SOH_TEMP_SCALE = 1.0f; // 1 LSB = 1 %
 
 public:
+    typedef struct
+    {
+        float BMSpackVoltage;
+        float BMSpackCurrent;
+        float BMSsoc;
+        float BMSsoh;
+        int8_t BMSlowestThermistorID;
+        int8_t BMShighestThermistorID;
+
+        int16_t updateData(const CAN_message_t &rx);
+
+    } DATA_t;
+
+    DATA_t BMSDATA{};                          // buffer intern
+    DATA_t PACK_DATA(const CAN_message_t &rx); 
+
     BMS(uint8_t numCells_param,
         float minCellVoltage_param,
         float maxCellVoltage_param,
@@ -58,7 +76,8 @@ public:
         cellType[sizeof(cellType) - 1] = '\0';
     }
     ~BMS() {}
-    void PACK_DATA(const CAN_message_t &rx);
+    uint8_t thermID(const CAN_message_t &rx) const;
+
     // Getters
     uint8_t getNumCells() const;
     float getMinCellVoltage() const;
