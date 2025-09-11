@@ -32,6 +32,7 @@ private:
     static constexpr float CURR_SCALE = 0.1f;     // 1 LSB = 0.1 A
     static constexpr float SOC_SCALE = 0.5f;      // 1 LSB = 0.5 %
     static constexpr float SOH_TEMP_SCALE = 1.0f; // 1 LSB = 1 %
+    static constexpr float FAN_V_SCALE = 0.01f;   // 1 LSB = 0.01 V
 
 public:
     typedef struct
@@ -46,11 +47,14 @@ public:
         int8_t BMSlowestTemperature;
         int8_t BMSfanSpeed, BMSfanVoltage;
         int8_t BMSaverageTemperature;
+        int8_t BMSfanSpeed;
+        float BMSfanVoltage;
 
     } DATA_t;
 
     void PACK_DATA(const CAN_message_t &rx, DATA_t &BMSDATA);
     void THERMID(const CAN_message_t &rx, DATA_t &BMSDATA);
+    void FANDATA(const CAN_message_t &rx, DATA_t &BMSDATA);
 
     BMS(uint8_t numCells_param,
         float minCellVoltage_param,

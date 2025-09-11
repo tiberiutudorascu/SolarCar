@@ -71,6 +71,7 @@ void loop()
     case 0x03C:
     {
       myBMS.THERMID(rx, BMSupdatedDATA);
+      myBMS.FANDATA(rx,BMSupdatedDATA);
       break;
     }
     case 0x03D:
