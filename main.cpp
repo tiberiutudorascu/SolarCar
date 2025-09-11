@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <STM32_CAN.h> //Biblioteca CAN https://github.com/pazi88/STM32_CAN
+#include <LoRa.h>
+
 #include "headers.hpp"
 
 #define RXPIN PA11
@@ -9,6 +11,7 @@ STM32_CAN CANBUS(RXPIN, TXPIN);
 CAN_message_t tx{}, rx{};
 BMS myBMS(96, 3.0f, 4.2f, 150.0f, 0.5f, -20.0f, 60.0f, 70.0f, "Li-ion", 5000.0f);
 ERORI bug = NICIO_EROARE;
+BMS::DATA_t BMSupdatedDATA;
 
 void problem(ERORI eroare);
 
@@ -61,11 +64,15 @@ void loop()
     switch (rx.id)
     {
     case 0x03B:
-      BMS::DATA_t d = myBMS.PACK_DATA(rx);
+    {
+      myBMS.PACK_DATA(rx, BMSupdatedDATA);
       break;
+    }
     case 0x03C:
-      myBMS.thermID(rx);
+    {
+      myBMS.THERMID(rx, BMSupdatedDATA);
       break;
+    }
     case 0x03D:
       // myBMS.abc();
       break;

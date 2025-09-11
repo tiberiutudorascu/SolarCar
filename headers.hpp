@@ -1,6 +1,5 @@
 #ifndef HEADERS_H
 #define HEADERS_H
-
 enum ERORI
 {
     NICIO_EROARE,
@@ -12,9 +11,9 @@ enum ERORI
 extern ERORI bug;
 
 void problem(ERORI eroare);
-void PACK_VI_SOCH(const CAN_message_t &rx);
 static inline int16_t be16s(const uint8_t *p);
 static inline uint16_t be16u(const uint8_t *p);
+
 class BMS
 {
 private:
@@ -28,8 +27,7 @@ private:
     float maxDischargeTemp;
     char cellType[16];
     float capacityWh;
-    static inline int8_t lowestThemistor = 50;
-    static inline int8_t highestThermistor = -50;
+
     static constexpr float VOLT_SCALE = 0.1f;     // 1 LSB = 0.1 V
     static constexpr float CURR_SCALE = 0.1f;     // 1 LSB = 0.1 A
     static constexpr float SOC_SCALE = 0.5f;      // 1 LSB = 0.5 %
@@ -42,15 +40,17 @@ public:
         float BMSpackCurrent;
         float BMSsoc;
         float BMSsoh;
-        int8_t BMSlowestThermistorID;
-        int8_t BMShighestThermistorID;
-
-        int16_t updateData(const CAN_message_t &rx);
+        int8_t BMSlowestThermistorID = 50;
+        int8_t BMShighestThermistorID = -50;
+        int8_t BMShighestTemperature;
+        int8_t BMSlowestTemperature;
+        int8_t BMSfanSpeed, BMSfanVoltage;
+        int8_t BMSaverageTemperature;
 
     } DATA_t;
 
-    DATA_t BMSDATA{};                          // buffer intern
-    DATA_t PACK_DATA(const CAN_message_t &rx); 
+    void PACK_DATA(const CAN_message_t &rx, DATA_t &BMSDATA);
+    void THERMID(const CAN_message_t &rx, DATA_t &BMSDATA);
 
     BMS(uint8_t numCells_param,
         float minCellVoltage_param,
@@ -76,7 +76,6 @@ public:
         cellType[sizeof(cellType) - 1] = '\0';
     }
     ~BMS() {}
-    uint8_t thermID(const CAN_message_t &rx) const;
 
     // Getters
     uint8_t getNumCells() const;
@@ -90,5 +89,4 @@ public:
     const char *getCellType() const;
     float getCapacityWh() const;
 };
-
 #endif
