@@ -1,5 +1,6 @@
 #ifndef HEADERS_H
 #define HEADERS_H
+
 enum ERORI
 {
     NICIO_EROARE,
@@ -7,7 +8,7 @@ enum ERORI
     EROARE_TRIMITERE,
     EROARE_FILTRU,
     ALTA_EROARE,
-};
+}; 
 extern ERORI bug;
 
 void problem(ERORI eroare);
@@ -35,21 +36,26 @@ private:
     static constexpr float FAN_V_SCALE = 0.01f;   // 1 LSB = 0.01 V
 
 public:
-    typedef struct
+    // PROBABIL O SA FIE SCHIMBAT INTR UN TEMPLATE CARE SA PASTREZE SI LOCAL DATELE SA IA VCU DECIZII SI APOI SA LE CONVERTEASCA IN INT16 PE CELELALTE
+    // PACKVOLTAGE CURRENT SI SOC
+    
+    typedef struct __attribute__((packed))
     {
-        float BMSpackVoltage;
-        float BMSpackCurrent;
-        float BMSsoc;
-        float BMSsoh;
-        int8_t BMSlowestThermistorID = 50;
-        int8_t BMShighestThermistorID = -50;
-        int8_t BMShighestTemperature;
-        int8_t BMSlowestTemperature;
-        int8_t BMSfanSpeed, BMSfanVoltage;
-        int8_t BMSaverageTemperature;
-        int8_t BMSfanSpeed;
-        float BMSfanVoltage;
+        // campuri pe 2 bytes (aliniate primele)
+        float BMSpackVoltage; // mV
+        float BMSpackCurrent; // 0.1A
+        uint16_t BMSFlags;       // Flaguri
 
+        // campuri pe 1 byte
+        float BMSsoc; // %
+        int8_t BMSsoh; // %
+        int8_t BMSlowestThermistorID;
+        int8_t BMShighestThermistorID;
+        int8_t BMShighestTemperature; // C
+        int8_t BMSlowestTemperature;  // C
+        int8_t BMSaverageTemperature; // C
+        int8_t BMSfanSpeed;           // 0-6
+        float BMSfanVoltage;         // 0.001 mV parca
     } DATA_t;
 
     void PACK_DATA(const CAN_message_t &rx, DATA_t &BMSDATA);

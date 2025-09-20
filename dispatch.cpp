@@ -38,7 +38,7 @@ void BMS::PACK_DATA(const CAN_message_t &rx, DATA_t &BMSDATA)
   const uint16_t v_raw = be16u(&rx.buf[0]);
   // Current8 (daca e cu semn, schimba pe be16s + int16_t)
   const uint16_t i_raw = be16u(&rx.buf[2]);
-  // SOC si SOH pe câte 1 byte
+  // SOC si SOH pe cate 1 byte
   const uint8_t soc_raw = rx.buf[4];
   const uint8_t soh_raw = rx.buf[5];
 
