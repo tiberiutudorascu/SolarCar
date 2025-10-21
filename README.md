@@ -1,5 +1,5 @@
 # SolarCar 
-##ASTA E PT VERSIUNEA VECHE DE PE PLATFORMIO CU FRAMEWORK ARDUINO, NU MAI E VALABIL CE SCRIE AICI DECAT CA GANDIRE(poate) SI PROCESAREA DE DATE
+## ASTA E PT VERSIUNEA VECHE DE PE PLATFORMIO CU FRAMEWORK ARDUINO, NU MAI E VALABIL CE SCRIE AICI DECAT CA GANDIRE(poate) SI PROCESAREA DE DATE
 Salut, asta e repo-ul pe care lucrez acum pentru partea de CAN pe low voltage.  
 Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
 Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini urmatoarea chestie:
