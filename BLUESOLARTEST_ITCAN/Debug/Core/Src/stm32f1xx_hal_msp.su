@@ -1,0 +1,5 @@
+../Core/Src/stm32f1xx_hal_msp.c:4:6:HAL_MspInit	8	static
+../Core/Src/stm32f1xx_hal_msp.c:22:6:MX_GPIO_INIT	32	static
+../Core/Src/stm32f1xx_hal_msp.c:34:6:CAN_INIT	16	static
+../Core/Src/stm32f1xx_hal_msp.c:60:6:HAL_CAN_MspInit	40	static
+../Core/Src/stm32f1xx_hal_msp.c:90:6:HAL_UART_MspInit	40	static
