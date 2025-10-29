@@ -19,13 +19,14 @@ TIM_HandleTypeDef htim2;
 volatile bool flag = 0;
 
 typedef struct {
-	uint8_t id;
+	uint16_t id;
 	uint8_t dlc;
 	uint8_t data[8];
 	uint8_t flags;
 } CANMSG_T;
+CANMSG_T CAN_MESSAGE;
 
-static volatile CANMSG_T RXQ[16];
+static CANMSG_T RXQ[16];
 static volatile uint16_t RX_HEAD = 0;
 static volatile uint16_t RX_TAIL = 0;
 
@@ -37,6 +38,22 @@ static inline bool rb_empty(void) {
 }
 static inline bool rb_full(void) {
 	return rb_next(RX_HEAD) == RX_TAIL;
+}
+static inline void rb_add(const CANMSG_T *canmsg) {
+	if (rb_full()) {
+		RX_TAIL = rb_next(RX_TAIL);
+	}
+	memcpy(&RXQ[RX_HEAD], canmsg, sizeof(CANMSG_T));
+
+	RX_HEAD = rb_next(RX_HEAD);
+}
+static inline bool rb_pop(CANMSG_T *canmsgread) {
+	if (rb_empty()) {
+		return 0;
+	}
+	memcpy(canmsgread, &RXQ[RX_TAIL], sizeof(CANMSG_T));
+	RX_TAIL = rb_next(RX_TAIL);
+	return 1;
 }
 
 int main(void) {
@@ -65,6 +82,10 @@ int main(void) {
 			CAN_TX();
 			flag = 0;
 
+		}
+		while(rb_pop(&CAN_MESSAGE))
+		{
+			//procesare de date
 		}
 	}
 
@@ -146,6 +167,7 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) {
 	HAL_MAX_DELAY) != HAL_OK) {
 		Error_Handler();
 	}
+
 }
 /*
  void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan) {
@@ -164,18 +186,26 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) {
  Error_Handler();
  }
  } */
- void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
- CAN_RxHeaderTypeDef rxheader = { 0 };
- uint8_t recieved_msg[8];
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+	CAN_RxHeaderTypeDef rxheader = { 0 };
+	uint8_t recieved_msg[8];
+	CANMSG_T recievedCAN = {0};
 
- if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxheader, recieved_msg)
- != HAL_OK) {
- Error_Handler();
- }
- HAL_UART_Transmit(&huart, (uint8_t*) recieved_msg, sizeof(recieved_msg) - 1,
- HAL_MAX_DELAY);
+	if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxheader, recieved_msg)
+			!= HAL_OK) {
+		Error_Handler();
+	}
+	uint8_t len = (rxheader.DLC > 8) ? 8 : rxheader.DLC;
+	recievedCAN.id = rxheader.StdId;
+	recievedCAN.dlc = len;
+	memcpy(recievedCAN.data,recieved_msg,len);
+	recievedCAN.flags = rxheader.RTR;
 
- }
+	rb_add(&recievedCAN);
+	//HAL_UART_Transmit(&huart, (uint8_t*) recieved_msg, sizeof(recieved_msg) - 1,
+	//HAL_MAX_DELAY);
+
+}
 void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan) {
 
 }
@@ -207,4 +237,5 @@ void UART_INIT() {
 		Error_Handler();
 	}
 }
+
 
