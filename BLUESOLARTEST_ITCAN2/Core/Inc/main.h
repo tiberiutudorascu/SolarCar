@@ -28,14 +28,26 @@ extern UART_HandleTypeDef huart;
 extern CAN_HandleTypeDef hcan;
 extern TIM_HandleTypeDef htim2;
 
+typedef struct {
+	uint16_t id;
+	uint8_t dlc;
+	uint8_t data[8];
+	uint8_t flags;
+} CANMSG_T;
+extern CANMSG_T CAN_MESSAGE;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_hal_tim.h"
 #include "stm32f1xx_hal_def.h"
+#include "candispatch.h"
+
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

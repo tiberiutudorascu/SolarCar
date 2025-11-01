@@ -1,8 +1,8 @@
 #include "stm32f1xx_hal.h"
 #include "main.h"
-#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 void SystemClock_Config();
 void MX_GPIO_INIT();
@@ -18,13 +18,12 @@ UART_HandleTypeDef huart;
 TIM_HandleTypeDef htim2;
 volatile bool flag = 0;
 
-typedef struct {
-	uint16_t id;
-	uint8_t dlc;
-	uint8_t data[8];
-	uint8_t flags;
-} CANMSG_T;
 CANMSG_T CAN_MESSAGE;
+
+typedef struct {
+	//HABARNAM INCA NUM SA L TRIMIT
+	int PL;
+} LORA_READY_CAN;
 
 static CANMSG_T RXQ[16];
 static volatile uint16_t RX_HEAD = 0;
@@ -83,9 +82,16 @@ int main(void) {
 			flag = 0;
 
 		}
-		while(rb_pop(&CAN_MESSAGE))
-		{
-			//procesare de date
+		while (rb_pop(&CAN_MESSAGE)) {
+			switch (CAN_MESSAGE.id) {
+			case 0x100: {
+				BMS0x100(CAN_MESSAGE);
+				break;
+			}
+			default:
+				break;
+
+			}
 		}
 	}
 
@@ -189,7 +195,7 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) {
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	CAN_RxHeaderTypeDef rxheader = { 0 };
 	uint8_t recieved_msg[8];
-	CANMSG_T recievedCAN = {0};
+	CANMSG_T recievedCAN = { 0 };
 
 	if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxheader, recieved_msg)
 			!= HAL_OK) {
@@ -198,7 +204,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	uint8_t len = (rxheader.DLC > 8) ? 8 : rxheader.DLC;
 	recievedCAN.id = rxheader.StdId;
 	recievedCAN.dlc = len;
-	memcpy(recievedCAN.data,recieved_msg,len);
+	memcpy(recievedCAN.data, recieved_msg, len);
 	recievedCAN.flags = rxheader.RTR;
 
 	rb_add(&recievedCAN);
@@ -237,5 +243,4 @@ void UART_INIT() {
 		Error_Handler();
 	}
 }
-
 
