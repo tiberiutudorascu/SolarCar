@@ -194,22 +194,22 @@ static inline uint16_t rb_next(uint16_t i) { //Functie care verifica urmatoarea 
 	 Error_Handler();
 	 }
 	 } */
-	void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
-		CAN_RxHeaderTypeDef rxheader = { 0 };
-		uint8_t recieved_msg[8];
-		CANMSG_T recievedCAN = { 0 };
+	void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) { //Callback pentru cand un mesaj este primit pe FIFO0
+		CAN_RxHeaderTypeDef rxheader = { 0 }; //RX header
+		uint8_t recieved_msg[8]; //Bufferul pentru mesaj
+		CANMSG_T recievedCAN = { 0 }; //Mesajul de adaugat in coada circulara
 
 		if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxheader, recieved_msg)
 				!= HAL_OK) {
-			Error_Handler();
+			Error_Handler();  //Daca se primeste mesaj si returneaza HAL_OK bine, daca nu, Error_handler()
 		}
-		uint8_t len = (rxheader.DLC > 8) ? 8 : rxheader.DLC;
-		recievedCAN.id = rxheader.StdId;
-		recievedCAN.dlc = len;
-		memcpy(recievedCAN.data, recieved_msg, len);
-		recievedCAN.flags = rxheader.RTR;
+		uint8_t len = (rxheader.DLC > 8) ? 8 : rxheader.DLC;   //Calculam dimensiunea pachetului
+		recievedCAN.id = rxheader.StdId; //Copiem IDUL
+		recievedCAN.dlc = len; //DLC primeste dimensiunea pachetului
+		memcpy(recievedCAN.data, recieved_msg, len); //Copiem payloadul in mesajul nostru pentru procesare
+		recievedCAN.flags = rxheader.RTR; //Verificam eventuale flaguri
 
-		rb_add(&recievedCAN);
+		rb_add(&recievedCAN); //Adaugam mesajul in coada
 		//HAL_UART_Transmit(&huart, (uint8_t*) recieved_msg, sizeof(recieved_msg) - 1,
 		//HAL_MAX_DELAY);
 
