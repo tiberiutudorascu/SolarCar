@@ -16,6 +16,7 @@ void CANTIM2_INIT(void); //Prototipul functiei CANTIM2_INIT() de tipul void
 CAN_HandleTypeDef hcan; //Initializarea variabilei hcan de tipul CAN_HandleTypeDef
 UART_HandleTypeDef huart; //Initializarea variabilei huart de tipul UART_HandleTypeDef
 TIM_HandleTypeDef htim2; //Initializarea variabilei htim2 de tipul TIM_HandleTypeDef
+volatile bool flag = 0; //Initializarea flagului flag ca variabila volatila pentru evidenta timer-ului
 
 CANMSG_T CAN_MESSAGE; //Initializarea variabilei CAN_MESSAGE de tipul CANMSG_T pentru prelucrarea mesajelor primite pe CANBUS
 
