@@ -1,46 +1,38 @@
-# SolarCar 
-## ASTA E PT VERSIUNEA VECHE DE PE PLATFORMIO CU FRAMEWORK ARDUINO, NU MAI E VALABIL CE SCRIE AICI DECAT CA GANDIRE(poate) SI PROCESAREA DE DATE
-Salut, asta e repo-ul pe care lucrez acum pentru partea de CAN pe low voltage.  
-Momentan am facut doar partea de baza ca sa putem citi mesaje de la BMS.
-Se downloadeaza Platformio (extensie pe VSCode) -> New Project -> Se adauga in platformio.ini urmatoarea chestie:
-```
-[env:disco_l4s5i_iot01a]
-platform = ststm32
-board = disco_l4s5i_iot01a
-framework = arduino
+* Repository overview
+  * Name
+      * SolarCar – Low Voltage CAN Stack
+  * Scope
+      * This repository contains the Low Voltage (LV) / CAN communication stack
+        for the SolarCar project.
+      * It is focused on:
+        * receiving and decoding CAN messages from the BMS and other LV devices
+        * dispatching data to other subsystems (PDM, dashboard, safety blocks)
+        * experimenting with different boards and configurations for LV CAN
 
-lib_deps =
-  https://github.com/pazi88/STM32_CAN
-
-build_flags = 
-  -DHAL_CAN_MODULE_ENABLED
-
-monitor_speed = 115200
-```
-Biblioteca CAN https://github.com/pazi88/STM32_CAN in caz ca aveti nevoie de resurse / clasa e in proiect
-
-## De ce fac asta de acum?
-BMS-ul are o gramada de semnale si ideea e sa il configuram astfel incat sa ne dea doar ce ne trebuie pentru masina, nu tot ce are el.
-<img width="3480" height="1405" alt="image" src="https://github.com/user-attachments/assets/5067c58c-e3ee-4f24-b65f-9255a7376679" />
-Nu am gasit mesaje standardizate asa ca momentan, o sa imi inchipui ca o sa configuram noi BMS ul incat sa ne dea doar strictul necesar. more research to come
-In plus, pe langa BMS vor mai fi integrate si alte lucruri de safety si control: butoanele, pedalele, masurarea vitezei, PDM-ul si dashboard-ul. Toate astea trebuie sa vorbeasca intre ele prin CAN. 
-
-
-## Ce merge acum (IN TEORIE)
-- Initializam magistrala CAN pe STM32 si am testat ca functioneaza in loopback  
-- Avem tratament de erori la filtru, transmitere si primire  
-- Citim mesajul cu ID 0x200 de la BMS si il decodam:
-  - tensiunea pachetului (0.1 V pe LSB)  
-  - curentul pachetului (0.1 A pe LSB, cu semn)  
-  - SOC (0.5% pe LSB)  
-  - SOH (1% pe LSB)  
-- Valorile decodate le scoatem pe Serial ca sa le vedem usor  
-
-## Ce urmeaza
-- Sa adaugam suport si pentru alte mesaje CAN  
-- Sa separam partea de parsare de partea de afisare ca sa putem salva/loga mai usor  
-- Sa documentam clar structura mesajelor in repo
-- Efectiv tot restul softwareului ca asta nu e nici 1%
-  may god have mercy
-  Linkuri de ajutor moral si tehnic: https://www.orionbms.com/downloads/misc/editing_canbus_messages.pdf
-  Biblia cu toate datele :           https://www.orionbms.com/manuals/utility/
+* Repository structure
+  * BLUESOLARTEST_ITCAN2
+      * Main STM32CubeIDE project.
+      * Contains:
+        * core source files (e.g. `Core/Src/main.c`, `Core/Src/candispatch.c`)
+        * HAL drivers (`Drivers/STM32F1xx_HAL_Driver/...`)
+        * STM32CubeIDE metadata for the project.
+      * This is where active development happens for:
+        * CAN and other peripherals driver configuration
+        * message filtering and dispatching
+        * decoding BMS frames (voltage, current, SOC, SOH, etc.)
+  * OLDARDUINOPROJECT
+      * Legacy project using PlatformIO + Arduino framework on STM32.
+      * Kept for historical reference only:
+        * early experiments with CAN
+        * first versions of BMS data decoding
+      * Not maintained; new work should NOT be added here.
+  * Other files and folders
+      * `esp32.ino`
+        * ESP32 sketch that is used on an ESP32 C3-SuperMini acting as a CAN Node using a 8MHz MCP2515.
+        * Should be modified only during RX/TX tests.
+      * `README.md`
+        * This file.
+      * Future documentation files
+        * `Documentation.pdf` (recommended)
+        * diagrams or protocol descriptions for CAN / LV
+  * The software used to create and configure the BMS messages is the official Orion BMS software
