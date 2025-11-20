@@ -22,7 +22,7 @@ void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 
 	static char buf[96];
 	int n = snprintf(buf, sizeof(buf),
-	                 "BMS id=0x%03lX V=%.2fV I=%.2fA SOC=%.1f%% SOH=%.1f%%\r\n",
+	                 "BMS id=0x%03lX V=%.2fV I=%.2fA SOC=%.1f%% SOH=%.1f%% AMPH =%.1f%% \r\n",
 	                 (unsigned long)CAN_MESSAGE.id,
 	                 BMSpackVoltage, BMSpackCurrent, BMSsoc, BMSsoh,BMSamphours);
 	if (n < 0)
