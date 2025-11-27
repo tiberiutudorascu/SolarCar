@@ -6,9 +6,10 @@ bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE) {
 
 	uint32_t crc_check_sum = CAN_MESSAGE->id + 8u + CAN_MESSAGE->data[0]
 			+ CAN_MESSAGE->data[1] + CAN_MESSAGE->data[2] + CAN_MESSAGE->data[3]
-			+ CAN_MESSAGE->data[4] + CAN_MESSAGE->data[5] + CAN_MESSAGE->data[6];
+			+ CAN_MESSAGE->data[4] + CAN_MESSAGE->data[5]
+			+ CAN_MESSAGE->data[6];
 
-	uint8_t expected_crc_check_sum = (uint8_t)(crc_check_sum & 0xFF);
+	uint8_t expected_crc_check_sum = (uint8_t) (crc_check_sum & 0xFF);
 	if (expected_crc_check_sum == CAN_MESSAGE->data[7])
 		return 1;
 	else
@@ -55,3 +56,19 @@ void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 	}
 
 }
+void BMS0x101(const CANMSG_T CAN_MESSAGE) {
+	if (CAN_MESSAGE.dlc < 7) {
+		Error_Handler();
+	}
+	////
+	////
+	if (CRC_CHECKSUM(&CAN_MESSAGE) != 1) {
+		Error_Handler();
+	} else {
+
+		////
+		////
+
+	}
+}
+
