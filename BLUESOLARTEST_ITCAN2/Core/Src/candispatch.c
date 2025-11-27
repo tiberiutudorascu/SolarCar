@@ -1,5 +1,15 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
+#include <stdbool.h>
+
+bool CRC_CHECKSUM(uint8_t crc_val_b)
+{
+uint8_t test = 2;
+if(crc_val_b == test)
+	return 1;
+else return 0;
+
+}
 
 void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 
