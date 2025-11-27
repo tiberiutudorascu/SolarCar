@@ -1,7 +1,6 @@
 #include "stm32f1xx_hal.h" //Inlcuderea bibliotecii pentru Hardware Abstaction Layer (HAL) a STM32F1X
 #include "main.h" // Includerea fisierului header main.h
 #include <string.h> //Includerea bibliotecii string.h
-#include <stdbool.h> // Includerea bibliotecii stdbool
 #include <stdint.h> // Includerea bibliotecii stdint
 
 void SystemClock_Config(); //Prototipul functiei SystemClock_Config() de tipul void
@@ -12,6 +11,8 @@ void CAN_FILTER_CONFIG(); //Prototipul functiei CAN_FILTER_CONFIG() de tipul voi
 void UART_INIT(); //Prototipul functiei UART_INIT() de tipul void
 void Error_Handler(); //Prototipul functiei Error_Handler() de tipul void
 void CANTIM2_INIT(void); //Prototipul functiei CANTIM2_INIT() de tipul void
+bool CRC_CHECKSUM(uint8_t crc_val_b);
+
 
 CAN_HandleTypeDef hcan; //Initializarea variabilei hcan de tipul CAN_HandleTypeDef
 UART_HandleTypeDef huart; //Initializarea variabilei huart de tipul UART_HandleTypeDef
