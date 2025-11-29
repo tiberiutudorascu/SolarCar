@@ -6,9 +6,10 @@ bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE) {
 
 	uint32_t crc_check_sum = CAN_MESSAGE->id + 8u + CAN_MESSAGE->data[0]
 			+ CAN_MESSAGE->data[1] + CAN_MESSAGE->data[2] + CAN_MESSAGE->data[3]
-			+ CAN_MESSAGE->data[4] + CAN_MESSAGE->data[5] + CAN_MESSAGE->data[6];
+			+ CAN_MESSAGE->data[4] + CAN_MESSAGE->data[5]
+			+ CAN_MESSAGE->data[6];
 
-	uint8_t expected_crc_check_sum = (uint8_t)(crc_check_sum & 0xFF);
+	uint8_t expected_crc_check_sum = (uint8_t) (crc_check_sum & 0xFF);
 	if (expected_crc_check_sum == CAN_MESSAGE->data[7])
 		return 1;
 	else
@@ -55,3 +56,38 @@ void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 	}
 
 }
+void BMS0x101(const CANMSG_T CAN_MESSAGE) {
+	if (CAN_MESSAGE.dlc < 7) {
+		Error_Handler();
+	}
+
+	if (CRC_CHECKSUM(&CAN_MESSAGE) != 1) {
+		Error_Handler();
+	} else {
+
+		int8_t BMShighTemperature = CAN_MESSAGE.data[0];  // [C]
+		uint8_t BMShighTermID = CAN_MESSAGE.data[1];      // ID >=1
+		int8_t BMSlowTemperature = CAN_MESSAGE.data[2]; 	// [c]
+		uint8_t BMSlowTermID = CAN_MESSAGE.data[3];			// ID >=1
+		uint8_t BMSaverageTemp = CAN_MESSAGE.data[4];		// [c]
+		uint8_t BMSfanSpeed = CAN_MESSAGE.data[5];				// 0 - 12
+		uint8_t BMSfanVoltage = CAN_MESSAGE.data[6] * VOLT_CURR_SCALE;	// [V]
+
+		static char buf[255];
+		int n =
+				snprintf(buf, sizeof(buf),
+						"BMS id=0x%03lX High Temperature=%d C High Termistor=%d Low Temperature=%d C Low Termistor=%d Average Temp =%d C Fan speed=%d Fan Voltage=%d \r\n",
+						(unsigned long) CAN_MESSAGE.id, BMShighTemperature,
+						BMShighTermID, BMSlowTemperature, BMSlowTermID,
+						BMSaverageTemp, BMSfanSpeed, BMSfanVoltage);
+		if (n < 0)
+			return;
+
+		if (HAL_UART_Transmit_IT(&huart, (uint8_t*) buf, (uint16_t) n)
+				!= HAL_OK) {
+
+			Error_Handler();
+		}
+	}
+}
+
