@@ -88,6 +88,10 @@ int main(void) {
 				BMS0x100(CAN_MESSAGE);		//Apelarea functiei BMS0x100
 				break;
 			}
+			case 0x101: {
+				BMS0x101(CAN_MESSAGE);		//Apelarea functiei BMS0x101
+				break;
+			}
 			default:
 				break;
 
@@ -167,7 +171,7 @@ void CAN_FILTER_CONFIG() { //Functie de configurare Recieve ALL mastile oprite f
 	}
 
 }
-void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) {//CallBack pentru cand un mesaj este trimis cu succes, printeaza mesaj in functie de mailbox
+void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) { //CallBack pentru cand un mesaj este trimis cu succes, printeaza mesaj in functie de mailbox
 	const char msg[] = "Message sent from mailbox 1\n\r";
 
 	if (HAL_UART_Transmit(&huart, (uint8_t*) msg, sizeof(msg) - 1,
