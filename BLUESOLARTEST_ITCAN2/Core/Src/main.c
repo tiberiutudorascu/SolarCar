@@ -246,4 +246,4 @@ static inline uint16_t rb_next(uint16_t i) { //Functie care verifica urmatoarea 
 			Error_Handler(); //Error_handler in caz ca nu
 		}
 	}
-
+// Test
