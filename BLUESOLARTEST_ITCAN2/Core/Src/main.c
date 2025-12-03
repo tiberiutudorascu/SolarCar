@@ -11,6 +11,7 @@ void CAN_FILTER_CONFIG(); //Prototipul functiei CAN_FILTER_CONFIG() de tipul voi
 void UART_INIT(); //Prototipul functiei UART_INIT() de tipul void
 void Error_Handler(); //Prototipul functiei Error_Handler() de tipul void
 void CANTIM2_INIT(void); //Prototipul functiei CANTIM2_INIT() de tipul void
+void MX_GPIO_INIT(void);
 bool CRC_CHECKSUM(uint8_t crc_val_b);
 
 
@@ -81,6 +82,7 @@ static inline uint16_t rb_next(uint16_t i) { //Functie care verifica urmatoarea 
 
 			if (flag == 1) {	//Daca flag este 1
 				CAN_TX();		//un mesaj e trimis pe bus
+				HAL_GPIO_TogglePin(GPIO, GPIO_PIN_13);
 				flag = 0;		//flag se reseteaza la 0
 
 			}
@@ -246,4 +248,18 @@ static inline uint16_t rb_next(uint16_t i) { //Functie care verifica urmatoarea 
 			Error_Handler(); //Error_handler in caz ca nu
 		}
 	}
+
+
+	void MX_GPIO_INIT(){
+			GPIO_InitTypeDef GPIO_InitStruct = {0}; //am declarat o variabila de tip strcut
+
+			__HAL_RCC_GPIOC_CLK_ENABLE(); // pornesc clk ul
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); //setez valoarea pe pinul PC13 ca stare initiala
+
+			GPIO_InitStruct.Pin = GPIO_PIN_13; // selectez pinul PC13 pt configurare
+			GPIO_InitStruct.Mode = GPIO_MODE_OUT_PP; // setez modul standard pentru a aprinde LED ul PUSH-PULL
+			GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW; //setez viteza de blink a ledului
+			HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); // trimit toate setarile  catre hardware-ul portilui C
+		}
+
 // Test
