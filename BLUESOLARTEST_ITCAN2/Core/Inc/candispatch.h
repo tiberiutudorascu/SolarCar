@@ -16,6 +16,7 @@ static inline uint16_t be16u(const uint8_t *p) {
 bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE);
 void BMS0x100(const CANMSG_T CAN_MESSAGE);
 void BMS0x101(const CANMSG_T CAN_MESSAGE);
+void BMS0x102(const CANMSG_T CAN_MESSAGE);
 
 
 #endif
