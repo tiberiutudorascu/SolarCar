@@ -21,35 +21,14 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
-#include "stm32f1xx_hal.h"
 
-
-extern UART_HandleTypeDef huart;
-extern CAN_HandleTypeDef hcan;
-extern TIM_HandleTypeDef htim2;
-
-typedef struct {
-	uint16_t id;
-	uint8_t dlc;
-	uint8_t data[8];
-	uint8_t flags;
-} CANMSG_T;
-extern CANMSG_T CAN_MESSAGE;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
 #include "stm32f1xx_hal.h"
-#include "stm32f1xx_hal_tim.h"
-#include "stm32f1xx_hal_def.h"
-#include "candispatch.h"
-#include <stdbool.h>
-
-
-
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -74,6 +53,9 @@ extern "C" {
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
+// Definesc structura CAN
+
+
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
@@ -81,7 +63,17 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
+typedef struct{
+	uint32_t id;
+	uint8_t dlc;
+	uint8_t data[8];
+	uint8_t flags;
+} CANMSG_T;
 
+
+#define VOLT_CURR_SCALE 0.1f
+#define SOC_SCALE 1.0f
+#define SOH_TEMP_SCALE 1.0f
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
