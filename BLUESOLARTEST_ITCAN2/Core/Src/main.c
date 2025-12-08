@@ -92,7 +92,7 @@ int main(void) {
 				BMS0x101(CAN_MESSAGE);		//Apelarea functiei BMS0x101
 				break;
 			}
-			case 0x102:{
+			case 0x102: {
 				BMS0x102(CAN_MESSAGE); //Apelarea functiei BMS0x102
 				break;
 			}

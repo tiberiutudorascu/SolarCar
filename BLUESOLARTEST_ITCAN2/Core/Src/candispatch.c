@@ -16,6 +16,20 @@ bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE) {
 		return 0;
 }
 
+LimitAnalysis_t analyze_limit_causes(uint16_t raw_status_ccl,
+		uint8_t raw_relay_state) {
+
+	LimitAnalysis_t result;
+	result.dcl_reasons = raw_status_ccl & MASK_DCL_CAUSES;
+	result.is_dcl_limited = (result.dcl_reasons != 0);
+	result.ccl_reasons = raw_status_ccl & MASK_CCL_CAUSES;
+	result.is_ccl_limited = (result.ccl_reasons != 0);
+	result.relay_reasons = raw_relay_state & RELAY_STATE_CAUSES;
+	result.relay_state_fault = (result.relay_reasons != 0);
+
+	return result;
+}
+
 void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 
 	if (CAN_MESSAGE.dlc < 7) {
@@ -25,8 +39,10 @@ void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 		Error_Handler();
 	} else {
 
-		const float BMSpackVoltage = be16u(&CAN_MESSAGE.data[0]) * VOLT_CURR_SCALE; // [V]
-		const float BMSpackCurrent = be16u(&CAN_MESSAGE.data[2]) * VOLT_CURR_SCALE; // [A]
+		const float BMSpackVoltage = be16u(&CAN_MESSAGE.data[0])
+				* VOLT_CURR_SCALE; // [V]
+		const float BMSpackCurrent = be16u(&CAN_MESSAGE.data[2])
+				* VOLT_CURR_SCALE; // [A]
 		const float BMSsoc = CAN_MESSAGE.data[4];        // [%]
 		const float BMSsoh = CAN_MESSAGE.data[5] * SOH_TEMP_SCALE;   // [%]
 		const float BMSamphours = CAN_MESSAGE.data[6] * VOLT_CURR_SCALE;
@@ -62,8 +78,8 @@ void BMS0x101(const CANMSG_T CAN_MESSAGE) {
 		const int8_t BMSlowTemperature = CAN_MESSAGE.data[2]; 	// [c]
 		const uint8_t BMSlowTermID = CAN_MESSAGE.data[3];			// ID >=1
 		const uint8_t BMSaverageTemp = CAN_MESSAGE.data[4];		// [c]
-		const uint8_t BMSfanSpeed = CAN_MESSAGE.data[5];				// 0 - 12
-		const float BMSfanVoltage = CAN_MESSAGE.data[6] * VOLT_CURR_SCALE;	// [V]
+		const uint8_t BMSfanSpeed = CAN_MESSAGE.data[5];			// 0 - 12
+		const float BMSfanVoltage = CAN_MESSAGE.data[6] * VOLT_CURR_SCALE;// [V]
 
 		static char buf[255];
 		int n =
@@ -112,6 +128,43 @@ void BMS0x102(const CANMSG_T CAN_MESSAGE) {
 				!= HAL_OK) {
 
 			Error_Handler();
+		}
+
+	}
+
+}
+
+void BMS0x010(const CANMSG_T CAN_MESSAGE) {
+	if (CAN_MESSAGE.dlc < 7) {
+		Error_Handler();
+	}
+
+	if (CRC_CHECKSUM(&CAN_MESSAGE) != 1) {
+		Error_Handler();
+	} else {
+
+		const uint16_t BMScclByte = le16u(&CAN_MESSAGE.data[0]);
+		const uint8_t BMSrelayState = CAN_MESSAGE.data[2];
+		const uint8_t BMSflag_0 = CAN_MESSAGE.data[3];
+		const uint8_t BMSflag_1 = CAN_MESSAGE.data[4];
+		const uint8_t BMSflag_2 = CAN_MESSAGE.data[5];
+		const uint8_t BMSflag_3 = CAN_MESSAGE.data[5];
+
+		LimitAnalysis_t status = analyze_current_limit_causes(BMScclByte,
+				BMSrelayState);
+		if (status.is_ccl_limited) {
+			if (status.ccl_reasons & CLS_CCL_HIGH_SOC)
+				Error_Handler(/*Parametru*/);
+			//etc etc de implementat
+			// to do something
+
+		}
+		if (status.is_dcl_limited) {
+			if (status.dcl_reasons & CLS_DCL_LOW_SOC)
+				Error_Handler(/*Parametru*/);
+			//etc etc de implementat
+			// to do something
+
 		}
 
 	}
