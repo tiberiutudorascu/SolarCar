@@ -1,0 +1,5 @@
+../Core/Inc/candispatch.h:17:24:be16u	16	static
+../Core/Src/candispatch.c:9:6:CRC_CHECKSUM	24	static
+../Core/Src/candispatch.c:23:6:BMS0x100	128	static
+../Core/Src/candispatch.c:55:6:BMS0x101	96	static
+../Core/Src/candispatch.c:90:6:BMS0x102	88	static

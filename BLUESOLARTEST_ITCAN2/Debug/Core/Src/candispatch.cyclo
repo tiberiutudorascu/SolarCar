@@ -1,0 +1,5 @@
+../Core/Inc/candispatch.h:17:24:be16u	1
+../Core/Src/candispatch.c:9:6:CRC_CHECKSUM	2
+../Core/Src/candispatch.c:23:6:BMS0x100	5
+../Core/Src/candispatch.c:55:6:BMS0x101	5
+../Core/Src/candispatch.c:90:6:BMS0x102	5

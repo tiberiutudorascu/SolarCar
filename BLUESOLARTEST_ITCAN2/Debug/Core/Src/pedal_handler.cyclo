@@ -1,0 +1,5 @@
+../Core/Src/pedal_handler.c:39:18:Apply_Filter	2
+../Core/Src/pedal_handler.c:53:18:ADC_Read	3
+../Core/Src/pedal_handler.c:82:14:Stop_Throttle	1
+../Core/Src/pedal_handler.c:94:7:Pedal_Init	1
+../Core/Src/pedal_handler.c:103:7:Pedal_Process	7

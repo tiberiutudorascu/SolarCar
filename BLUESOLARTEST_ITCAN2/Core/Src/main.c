@@ -1,255 +1,415 @@
-#include "stm32f1xx_hal.h" //Inlcuderea bibliotecii pentru Hardware Abstaction Layer (HAL) a STM32F1X
-#include "main.h" // Includerea fisierului header main.h
-#include <string.h> //Includerea bibliotecii string.h
-#include <stdint.h> // Includerea bibliotecii stdint
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "candispatch.h"
+#include "pedal_handler.h"
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
-void SystemClock_Config(); //Prototipul functiei SystemClock_Config() de tipul void
-void MX_GPIO_INIT(); //Prototipul functiei MX_GPIO_INIT() de tipul void
-void CAN_INIT(); //Prototipul functiei CAN_INIT() de tipul void
-void CAN_TX(); //Prototipul functiei CAN_TX() de tipul void
-void CAN_FILTER_CONFIG(); //Prototipul functiei CAN_FILTER_CONFIG() de tipul void
-void UART_INIT(); //Prototipul functiei UART_INIT() de tipul void
-void Error_Handler(); //Prototipul functiei Error_Handler() de tipul void
-void CANTIM2_INIT(void); //Prototipul functiei CANTIM2_INIT() de tipul void
+/* USER CODE END Includes */
 
-CAN_HandleTypeDef hcan; //Initializarea variabilei hcan de tipul CAN_HandleTypeDef
-UART_HandleTypeDef huart; //Initializarea variabilei huart de tipul UART_HandleTypeDef
-TIM_HandleTypeDef htim2; //Initializarea variabilei htim2 de tipul TIM_HandleTypeDef
-volatile bool flag = 0; //Initializarea flagului flag ca variabila volatila pentru evidenta timer-ului
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
-CANMSG_T CAN_MESSAGE; //Initializarea variabilei CAN_MESSAGE de tipul CANMSG_T pentru prelucrarea mesajelor primite pe CANBUS
+/* USER CODE END PTD */
 
-typedef struct {
-	//HABARNAM INCA NUM SA L TRIMIT
-	int PL;
-} LORA_READY_CAN;
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
-static CANMSG_T RXQ[16]; //Declararea unui buffer circular cu 16 pozitii pentru receptarea mesajelor de pe CANBUS
-static volatile uint16_t RX_HEAD = 0; //Initializarea head-ului pentru coada
-static volatile uint16_t RX_TAIL = 0; //Initializarea tail-ului pentru coada
+/* USER CODE END PD */
 
-static inline uint16_t rb_next(uint16_t i) { //Functie care verifica urmatoarea pozitie din coada
-	return (uint16_t) ((i + 1u) & (16 - 1u)); //daca ajunge la pozitia 16, revine la 0 cu ajutorul modulo si returneaza pozitia
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+
+CAN_HandleTypeDef hcan;
+
+TIM_HandleTypeDef htim2;
+
+UART_HandleTypeDef huart1;
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_CAN_Init(void);
+static void MX_USART1_UART_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_TIM2_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_CAN_Init();
+  MX_USART1_UART_Init();
+  MX_ADC1_Init();
+  MX_TIM2_Init();
+  /* USER CODE BEGIN 2 */
+
+
+  HAL_ADCEx_Calibration_Start(&hadc1);	//calibrare ADC
+
+  Pedal_Init(); // initializare logica pedala
+
+  HAL_TIM_Base_Start_IT(&htim2);
+
+  HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+  HAL_CAN_Start(&hcan);
+
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	  Pedal_Process(); // citire , filtrare si erori
+
+	  HAL_Delay(10);
+
+  }
+  /* USER CODE END 3 */
 }
 
-static inline bool rb_empty(void) {	//Funcite care verifica daca coada circulara este goala si returneaza TRUE/FALSE
-	return RX_HEAD == RX_TAIL;
-}
-static inline bool rb_full(void) { //Functie care verifica daca coada circulara este plina si returneaza TRUE/FALSE
-	return rb_next(RX_HEAD) == RX_TAIL;
-}
-static inline void rb_add(const CANMSG_T *CAN_MESSAGE) { //Functie care adauga o variabila de tipul CANMSG_T in coada circulara
-	if (rb_full()) {
-		RX_TAIL = rb_next(RX_TAIL); //Daca coada este plina deplasam cu o pozitie tail, eliminand un element din coada
-	}
-	memcpy(&RXQ[RX_HEAD], CAN_MESSAGE, sizeof(CANMSG_T));
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-	RX_HEAD = rb_next(RX_HEAD); //Deplasarea cu o pozitie a head-ului
-}
-static inline bool rb_pop(CANMSG_T *CAN_MESSAGEread) { //Functie care elimina un element din coada
-	if (rb_empty()) { //Daca este goala returneaza 0
-		return 0;
-	}
-	memcpy(CAN_MESSAGEread, &RXQ[RX_TAIL], sizeof(CANMSG_T)); //Se copiaza un mesaj din coada in buffer pentru procesare
-	RX_TAIL = rb_next(RX_TAIL); 		//Se deplaseaza head-ul
-	return 1; //Returnare 1 daca functia a reusit eliminarea
-}
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL10;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-int main(void) {
-	HAL_Init(); //Apelarea functiei HAL_INIT() pentru intializarea hardware abstraction layer
-	SystemClock_Config(); //Aplearea functiei de configurare a ceasului si a oscilatorului
-	MX_GPIO_INIT(); //Apelarea functiei pentru configurarea unui GPIO
-	UART_INIT(); //Apelarea functiei pentru initalizarea portului UART
-	CAN_INIT(); //Apelarea functiei pentru intializarea comunicarii CAN si configurarea pinilor
-	CAN_FILTER_CONFIG(); //Apelarea functiei CAN_FILTER_CONFIG() pentru configurarea filtrelor pentru CANBUS
-	CANTIM2_INIT(); //Apelarea functiei CANTIM2_INIT pentru configurarea timerului 2
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-	if (HAL_CAN_ActivateNotification(&hcan,
-	CAN_IT_TX_MAILBOX_EMPTY | CAN_IT_RX_FIFO0_MSG_PENDING | CAN_IT_BUSOFF) //Activarea notificarilor atunci cand mailbox-ul este gol
-	!= HAL_OK) { 	// Este un mesaj primit in FIFO0 sau este o eroare pe bus
-		Error_Handler();	//Daca nu e returnat HAL_OK, intram in error handler
-	}
-
-	if (HAL_CAN_Start(&hcan) != HAL_OK) {			//Pornirea comunicarii CAN
-		Error_Handler();	//Daca nu e returnat HAL_OK, intram in error handler
-	}
-	HAL_TIM_Base_Start_IT(&htim2);	//Pornirea timerului
-
-	while (1) { //Bucla infinita pentru rularea programului
-
-		if (flag == 1) {	//Daca flag este 1
-			CAN_TX();		//un mesaj e trimis pe bus
-			flag = 0;		//flag se reseteaza la 0
-
-		}
-		while (rb_pop(&CAN_MESSAGE)) {	//Cat timp se citesc mesaje din coada
-			switch (CAN_MESSAGE.id) {//Se verifica ID ul si se proceseaza functia in functie de acesta
-			case 0x100: {
-				BMS0x100(CAN_MESSAGE);		//Apelarea functiei BMS0x100
-				break;
-			}
-			case 0x101: {
-				BMS0x101(CAN_MESSAGE);		//Apelarea functiei BMS0x101
-				break;
-			}
-			case 0x102:{
-				BMS0x102(CAN_MESSAGE); //Apelarea functiei BMS0x102
-				break;
-			}
-			default:
-				break;
-
-			}
-		}
-	}
-
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV4;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
 }
 
-void Error_Handler(void) {	//Functia Error Handler (Bucla infinita momentan)
-	while (1) {
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
 
-	}
-}
+  /* USER CODE BEGIN ADC1_Init 0 */
 
-void SystemClock_Config() {	//Functie pentru configurarea ceasului si a oscilatorului
-	RCC_OscInitTypeDef osc_init = { 0 };
-	RCC_ClkInitTypeDef clk_init = { 0 };
-	osc_init.HSEState = RCC_HSE_OFF; //Setam high speed external clock off
-	osc_init.HSIState = RCC_HSI_ON; //Setam high speed internal clock on
-	osc_init.HSICalibrationValue = 16; //Il calibram cu valoarea standard 16
-	osc_init.PLL.PLLState = RCC_PLL_ON; //Activam phase locked loop pentru a multiplica valoarea de la HSI
-	osc_init.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2; // Divizam inputul cu 2
-	osc_init.PLL.PLLMUL = RCC_PLL_MUL10; //Si il multiplicam cu 10
-	if (HAL_RCC_OscConfig(&osc_init) != HAL_OK) { //Trimitem configurarea oscilatorului si speram sa obtinem HAL_OK
-		Error_Handler(); //Daca nu, error handler
-	}
+  /* USER CODE END ADC1_Init 0 */
 
-	clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
-	RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2; //Initializam sysclock, hclk, pclk1, pclk2, adica system clock, ahb si apb1 si apb2
-	clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK; //Sursa ceasului este phase locked loop clock pe care l am configurat sus
-	clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1; //Pentru AHB divizam cu 1
-	clk_init.APB1CLKDivider = RCC_HCLK_DIV2; //Pentru APB1 cu 2
-	clk_init.APB2CLKDivider = RCC_HCLK_DIV1; //Pentru APB2 cu 1
-	if (HAL_RCC_ClockConfig(&clk_init, FLASH_ACR_LATENCY_1) != HAL_OK) {
-		Error_Handler(); //Trimitem configurarea cu flash latency ul din reference manual in functie de frecventa
-	}
-}
+  ADC_ChannelConfTypeDef sConfig = {0};
 
-void CAN_TX() {		//Functie pentru trimiterea unui mesaj pe bus
-	CAN_TxHeaderTypeDef txheader; //Variabila txheader de tipul CAN_TxHeaderTypeDef
-	uint32_t txmailbox; //Mailboxul in care punem mesajul
-	uint8_t test[6] = "test\r\n";  //Mesaj de test
+  /* USER CODE BEGIN ADC1_Init 1 */
 
-	txheader.DLC = 6; 	//Dimensiunea frame ului trimis
-	txheader.StdId = 0x01; //ID ul standard
-	txheader.IDE = CAN_ID_STD; //Id standard
-	txheader.RTR = CAN_RTR_DATA; //Tipul de date trimis, trimitem data nu remote frame
+  /* USER CODE END ADC1_Init 1 */
 
-	if (HAL_CAN_AddTxMessage(&hcan, &txheader, test, &txmailbox) //Apelam functia si trimitem parametrii, speram ca primim HAL_OK
-	!= HAL_OK) {
-		Error_Handler();
-		while (1) {
-			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-			HAL_Delay(800); //Asta aici era de test pentru loopback dar nu l am mai scos
-			printf("1\n");
-		}
-	}
+  /** Common config
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-}
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
 
-void CAN_FILTER_CONFIG() { //Functie de configurare Recieve ALL mastile oprite filtre pe id oprite etc
-	CAN_FilterTypeDef canfilter = { 0 };
-
-	canfilter.FilterActivation = ENABLE;
-	canfilter.FilterBank = 0;
-	canfilter.FilterFIFOAssignment = CAN_RX_FIFO0;
-	canfilter.FilterIdHigh = 0x0000;
-	canfilter.FilterIdLow = 0x0000;
-	canfilter.FilterMaskIdHigh = 0x0000;
-	canfilter.FilterMaskIdLow = 0x0000;
-	canfilter.FilterMode = CAN_FILTERMODE_IDMASK;
-	canfilter.FilterScale = CAN_FILTERSCALE_32BIT;
-
-	if (HAL_CAN_ConfigFilter(&hcan, &canfilter) != HAL_OK) {
-		Error_Handler();
-	}
-
-}
-void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan) { //CallBack pentru cand un mesaj este trimis cu succes, printeaza mesaj in functie de mailbox
-	const char msg[] = "Message sent from mailbox 1\n\r";
-
-	if (HAL_UART_Transmit(&huart, (uint8_t*) msg, sizeof(msg) - 1,
-	HAL_MAX_DELAY) != HAL_OK) {
-		Error_Handler();
-	}
-
-}
-/*
- void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan) {
- const char msg[] = "Message sent from mailbox 1\n\r";
-
- if (HAL_UART_Transmit(&huart, (uint8_t*) msg, sizeof(msg) - 1,
- HAL_MAX_DELAY) != HAL_OK) {
- Error_Handler();
- }
- }
- void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan) {
- const char msg[] = "Message sent from mailbox 2\n\r";
-
- if (HAL_UART_Transmit(&huart, (uint8_t*) msg, sizeof(msg) - 1,
- HAL_MAX_DELAY) != HAL_OK) {
- Error_Handler();
- }
- } */
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) { //Callback pentru cand un mesaj este primit pe FIFO0
-	CAN_RxHeaderTypeDef rxheader = { 0 }; //RX header
-	uint8_t recieved_msg[8]; //Bufferul pentru mesaj
-	CANMSG_T recievedCAN = { 0 }; //Mesajul de adaugat in coada circulara
-
-	if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxheader, recieved_msg)
-			!= HAL_OK) {
-		Error_Handler(); //Daca se primeste mesaj si returneaza HAL_OK bine, daca nu, Error_handler()
-	}
-	uint8_t len = (rxheader.DLC > 8) ? 8 : rxheader.DLC; //Calculam dimensiunea pachetului
-	recievedCAN.id = rxheader.StdId; //Copiem IDUL
-	recievedCAN.dlc = len; //DLC primeste dimensiunea pachetului
-	memcpy(recievedCAN.data, recieved_msg, len); //Copiem payloadul in mesajul nostru pentru procesare
-	recievedCAN.flags = rxheader.RTR; //Verificam eventuale flaguri
-
-	rb_add(&recievedCAN); //Adaugam mesajul in coada
-	//HAL_UART_Transmit(&huart, (uint8_t*) recieved_msg, sizeof(recieved_msg) - 1,
-	//HAL_MAX_DELAY);
-
-}
-void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan) { //Callback pentru eroare pe canbus
-
-}
-void CANTIM2_INIT() {  //Initializarea timerului 2
-	htim2.Instance = TIM2;
-	htim2.Init.Prescaler = 0x18F; //Prescaler si perioada se calculeaza folosind excelul de pe drive
-	htim2.Init.Period = 0xC34F; //Timer creat pentru 500ms
-
-	if (HAL_TIM_Base_Init(&htim2) != HAL_OK) { //Apelam functia hal si speram la hal_ok
-		Error_Handler();
-	}
+  /* USER CODE END ADC1_Init 2 */
 
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) { //Callback pentru timer2 atunci cand trec 500ms
-	if (htim->Instance == TIM2)
-		flag = 1; //Modificarea flagului in true
+/**
+  * @brief CAN Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CAN_Init(void)
+{
+
+  /* USER CODE BEGIN CAN_Init 0 */
+
+  /* USER CODE END CAN_Init 0 */
+
+  /* USER CODE BEGIN CAN_Init 1 */
+
+  /* USER CODE END CAN_Init 1 */
+  hcan.Instance = CAN1;
+  hcan.Init.Prescaler = 16;
+  hcan.Init.Mode = CAN_MODE_NORMAL;
+  hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  hcan.Init.TimeSeg1 = CAN_BS1_1TQ;
+  hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
+  hcan.Init.TimeTriggeredMode = DISABLE;
+  hcan.Init.AutoBusOff = DISABLE;
+  hcan.Init.AutoWakeUp = DISABLE;
+  hcan.Init.AutoRetransmission = DISABLE;
+  hcan.Init.ReceiveFifoLocked = DISABLE;
+  hcan.Init.TransmitFifoPriority = DISABLE;
+  if (HAL_CAN_Init(&hcan) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CAN_Init 2 */
+
+  /* USER CODE END CAN_Init 2 */
+
 }
 
-void UART_INIT() { //Functie pentru config/init portului UART
-	huart.Instance = USART1; //Folosim usart1
-	huart.Init.BaudRate = 115200; //Baudrate 115200
-	huart.Init.WordLength = UART_WORDLENGTH_8B; //Word length de 8 Bytes
-	huart.Init.StopBits = UART_STOPBITS_1; //Un singur stop bit
-	huart.Init.Parity = UART_PARITY_NONE; //Fara bit de paritate
-	huart.Init.HwFlowCtl = UART_HWCONTROL_NONE; //Nu avem request to send si clear to send
-	huart.Init.Mode = UART_MODE_TX_RX; //Transmit si recieve pe uart
-	if (HAL_UART_Init(&huart) != HAL_OK) { //Speram la HAL_OK
-		Error_Handler(); //Error_handler in caz ca nu
-	}
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 3999;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 4999;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
 }
 
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+
+  /* USER CODE END MX_GPIO_Init_1 */
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+
+  /* USER CODE END MX_GPIO_Init_2 */
+}
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	        for(int i=0; i<100000; i++); // blink rapid
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+#ifdef USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */
