@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BLUESOLARTEST_ITCAN2/Core/Inc/pedal_logic&apos; to &apos;pedal_logic.h&apos;" description="Rename resource &apos;pedal_logic&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Inc/pedal_logic" name="pedal_logic.h" stamp="1765307912325" updateReferences="true"/>
+</session>

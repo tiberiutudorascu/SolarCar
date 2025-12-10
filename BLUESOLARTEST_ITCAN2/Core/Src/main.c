@@ -18,12 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "candispatch.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+#include "pedal_logic.h"
+
+
 
 /* USER CODE END Includes */
 
@@ -110,28 +112,27 @@ int main(void)
   MX_TIM3_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-  HAL_ADCEx_Calibration_Start(&hadc1); //calibrarea ADC-ului
+//  HAL_ADCEx_Calibration_Start(&hadc1); //calibrarea ADC-ului
+ // Pedal_Init(&my_pedal); // initializam structura pedalei
+  HAL_ADC_Start(&hadc1); //pornim ADC ul
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_ADC_Start(&hadc1); //pornirea conversiei
+
+
+	  HAL_GPIO_TogglePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin);
+	  HAL_Delay(500);
 
 	  // citirea si calculul
-	  if(HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK){
-		  adc_raw_val = HAL_ADC_GetValue(&hadc1);
-		  pedal_percentage = (adc_raw_val * 100) / 4095;
-	  }
+	  HAL_ADC_PollForConversion(&hadc1, 10);
+	  my_pedal.raw_val = HAL_ADC_GetValue(&hadc1);
 
-	  HAL_ADC_Stop(&hadc1); //oprirea conversiei
+	  Pedal_Process(&my_pedal); //filtrarea + saftey
 
-	  //transmiterea prin UART
-	  sprintf(msg_buffer, "Pedala: %d%% (Raw: %lu)\r\n" ,pedal_percentage, adc_raw_val);
-	  HAL_UART_Transmit(&huart1, (uint8_t*)msg_buffer, strlen(msg_buffer), 100);
-
-	  HAL_Delay(100);
+	  HAL_Delay(20);
 
     /* USER CODE END WHILE */
 

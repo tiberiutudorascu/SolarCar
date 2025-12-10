@@ -3,6 +3,9 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="LED"/>
+		<item value="USER CODE BEGIN Private defines"/>
+		<item value="adc"/>
 		<item value="while (1)"/>
 		<item value="MX_ADC_INI1()"/>
 	</list>

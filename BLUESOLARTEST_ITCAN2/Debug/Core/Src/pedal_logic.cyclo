@@ -1,0 +1,5 @@
+../Core/Src/pedal_logic.c:7:6:_filter_signal	2
+../Core/Src/pedal_logic.c:20:6:Pedal_Init	2
+../Core/Src/pedal_logic.c:30:6:stop_throttle	1
+../Core/Src/pedal_logic.c:34:6:Pedal_Error_Handler	5
+../Core/Src/pedal_logic.c:53:6:Pedal_Process	3

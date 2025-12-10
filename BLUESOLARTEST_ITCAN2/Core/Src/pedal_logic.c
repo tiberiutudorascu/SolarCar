@@ -1,0 +1,75 @@
+#include "pedal_logic.h"
+#include <stdio.h>
+#include "main.h"
+
+#define SAFETY_MARGIN 100 // toleranta de siguranta
+
+void _filter_signal(PedalSensor* sensor){ // filtrarea semnalului
+	static uint32_t sum = 0;
+
+	sensor->buffer[sensor->buf_idx] = sensor->raw_val; //actualizez buffer ul
+	sensor->buf_idx = (sensor->buf_idx + 1) % 10;
+
+	sum = 0;
+	for(int i = 0; i < 10; i++){
+		sum += sensor->buffer[i];
+	}
+	sensor->filtered_val = sum / 10;
+}
+
+void Pedal_Init(PedalSensor* sensor){
+	sensor->min_cal = 500; //setez minimul la 500 ADC adica 0.4V pt ca pedala nu sta fix la 0V
+	sensor->max_cal = 3500; //setex maximul la 3500 ADC
+	sensor->buf_idx = 0; //initializez buffer ul la 0
+
+	for(int i = 0; i < 10; i++){
+		sensor->buffer[i] = sensor->min_cal;
+	}
+}
+
+void stop_throttle(void){
+//	printf("STOP THROTTLE !!\n"); //
+}
+
+void Pedal_Error_Handler(PedalStatus error){
+	switch(error){
+		case PEDAL_OK: //putem aprinde un LED pt confirmare
+//			printf("Pedal OK. Value: %lu\n", 0);
+			break;
+
+		case PEDAL_ERR_DISCONNECTED:
+//			printf("Error: Wire Disconnected!!\n");
+			stop_throttle();
+			break;
+
+		case PEDAL_ERR_SHORT_GND:
+//			printf("Error: Short Circuit!!\n");
+			stop_throttle();
+			break;
+	}
+}
+
+
+void Pedal_Process(PedalSensor* sensor){
+	//filtrearea
+	_filter_signal(sensor);
+	PedalStatus status = PEDAL_OK;
+
+
+	//logic check
+	// daca valoarea scade sub minimul calibrat avem fir deteriorat
+	if(sensor->filtered_val < (sensor->min_cal - SAFETY_MARGIN)){
+		status = PEDAL_ERR_DISCONNECTED;
+	}
+
+	// daca valoarea creste peste maximul calibrat avem scurtcircuit
+	else if(sensor->filtered_val < (sensor->max_cal + SAFETY_MARGIN)){
+		status = PEDAL_ERR_SHORT_GND;
+	}
+
+	else {
+		status = PEDAL_OK;
+	}
+
+	Pedal_Error_Handler(status);
+}

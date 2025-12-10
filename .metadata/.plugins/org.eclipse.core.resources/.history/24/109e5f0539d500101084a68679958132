@@ -1,0 +1,35 @@
+#ifndef PEDAL_LOGIC_H
+#define PEDAL_LOGIC_H
+
+#include "main.h"
+
+
+// tipuri de erori semnificative
+typedef enum{
+	PEDAL_OK = 0, // cand functioneaza totul
+	PEDAL_ERR_DISCONNECTED, //daca avem o valoarea prea mica
+	PEDAL_ERR_SHORT_GND, // scurtcircuit
+} PedalStatus;
+
+
+//  structura senzorului
+typedef struct{
+	uint32_t raw_val; //valoarea din ADC
+	uint32_t filtered_val; // valoarea mediata
+	// limite de calibrare
+	uint32_t min_cal; //valoarea ADC cand pedala e libera
+	uint32_t max_cal; //valoarea ADC cand pedala e la maxim
+	// buffer intern pentru filtrare
+	uint32_t buffer[10];
+	uint8_t buf_idx;
+} PedalSensor;
+
+
+// declararea functiilor
+void Pedal_Init(PedalSensor* sensor);
+void Pedal_Process(PedalSensor* sensor);
+void Pedal_Error_Handler(PedalStatus* sensor);
+void stop_throttle(void);
+
+
+#endif

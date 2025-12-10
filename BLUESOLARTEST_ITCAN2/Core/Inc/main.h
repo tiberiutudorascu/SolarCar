@@ -22,7 +22,6 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -52,9 +51,6 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
-// Definesc structura CAN
-
 
 /* USER CODE BEGIN EFP */
 

@@ -1,0 +1,4 @@
+pedal_percentage
+adc_raw_val
+my_pedal.raw_val
+my_pedal.filtered_val
