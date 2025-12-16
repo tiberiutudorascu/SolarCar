@@ -39,13 +39,15 @@
  static uint16_t Apply_Filter(uint16_t new_val, uint16_t *buffer){
 
 	 buffer[idx] = new_val;
-	 uint32_t sum =0;
+	 uint32_t sum =0;				// buffer-ul este circular de dimensiunea FILTER_SIZE (alocat static) ,
+	 	 	 	 	 	 	 	   //  iar functia rescrie valorile noi peste peste cele existente
 
 	 for(int i=0; i< FILTER_SIZE; i++){
 		 sum+= buffer[i];
 	 }
 
 	 return (uint16_t)(sum / FILTER_SIZE);
+
  }
 
 
@@ -83,7 +85,7 @@
 	 gPedal.throttle_pct =0; // facem pozitia acceleratiei 0 (taiem acceleratia)
 
 	 //aprindem Led-ul de eroare (pc13)
-	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // se poate stinge safe state daca senzorul primeste input ulterior. facem un flag care trebuie verificat
  }
 
 
@@ -115,75 +117,75 @@
 	     idx = (idx + 1) % FILTER_SIZE;	// avansam indexul bufferului circular pentru urmatoarea tura
 
 
-//----------------- VERIFICARE  ERORI (safety checks )  ---------------------------------
+	  //----------------- VERIFICARE  ERORI (safety checks )  ---------------------------------
 
 
-	  // check A: fir rupt (valoare prea mica )
-	     if (gPedal.filt_adc1 < ADC_MIN_VALID) {
-	         gPedal.status = ERR_POT1_DISCONNECTED;
+	  PedalStatus_t current_error = PEDAL_OK;
 
-	         Stop_Throttle();
+	  if(gPedal.filt_adc1 < ADC_MIN_VALID){
+		  current_error = ERR_POT1_DISCONNECTED;}
 
-	         return;
-	     }
+	  else if(gPedal.filt_adc2 < ADC_MIN_VALID){
+		  current_error = ERR_POT2_DISCONNECTED;}
 
-	     if (gPedal.filt_adc2 < ADC_MIN_VALID) {
-	         gPedal.status = ERR_POT2_DISCONNECTED;
+	  else if(gPedal.filt_adc1 > ADC_MAX_VALID){
+		  current_error = ERR_POT1_SHORT;}
 
-	         Stop_Throttle();
+	  else if(gPedal.filt_adc2 > ADC_MAX_VALID){
+			  current_error = ERR_POT2_SHORT;}
 
-	         return;
-	     }
-
-
-	   // check B: scurt la VCC ( valoare prea mare >3.2V)
-	     if (gPedal.filt_adc1 > ADC_MAX_VALID) {
-	         gPedal.status = ERR_POT1_SHORT;
-
-	         Stop_Throttle();
-
-	         return;
-	     }
-
-	     if (gPedal.filt_adc2 >	 ADC_MAX_VALID) {
-	   	         gPedal.status = ERR_POT2_SHORT;
-
-	   	         Stop_Throttle();
-
-	   	         return;
-	   	     }
+	  // verificam plauzibilitate
+	  else if(abs((int)gPedal.filt_adc1-(int)gPedal.filt_adc2) > MAX_DEVIATION){
+		  current_error = ERR_IMPLAUSIBLE;
+	  }
 
 
-	 //    check C: plauzibilitatea citirii (  diferenta intre senzori  )
+	  // logica pt safe state lock (blocat)
 
-	     // presup ca sunt senzori identici
-	     // daca diferenta e prea mare  =>  unul minte !
+	  if(current_error != PEDAL_OK){
 
-	     if ( abs( (int)gPedal.filt_adc1 - (int)gPedal.filt_adc2 ) > MAX_DEVIATION ) {
+		  gPedal.safe_state_locked = true;
+		  gPedal.status = current_error;
 
-	         gPedal.status = ERR_IMPLAUSIBLE;
-
-	         Stop_Throttle();
-
-	         return;
-	     }
+	  }
 
 
-	//  CALCUL FINAL ( totul OK )
+	  //------- gestionam iesire: ACCELERATIE/SAFE STATE --------------
 
-	     gPedal.status = PEDAL_OK;
+	  if(gPedal.safe_state_locked){
+		  //suntem in safe state ==> taiem acceleratia
 
-	     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // safe state led OFF
+		  Stop_Throttle();
 
-	     // mapare liniara simpla: 0-4095 -> 0-100%
-	     // folosim media celor 2 senzori pentru stabilitate maxima
+		  // conditia de reset este : - nu mai exista eroarea
+		  //					      - eliberam pedala, adica valoarea de la adc este mica ( cu max 100 peste minim )
 
-	     uint32_t avg = (gPedal.filt_adc1 + gPedal.filt_adc2) / 2;
+		  uint32_t avg_val = (gPedal.filt_adc1 + gPedal.filt_adc1)/2 ;
 
-	     // limitam la  100% (sa nu depaseasca uint8 )
-	     if (avg > 4095) avg = 4095;
+		  if(current_error == PEDAL_OK && avg_val < (ADC_MIN_VALID + 100)){
+			  gPedal.safe_state_locked = false;
+			  gPedal.status = PEDAL_OK;
 
-	     gPedal.throttle_pct = (uint8_t)((avg * 100) / 4095); // exprimam in procente ( cat la suta este apasata acceleratia )
+			  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET ); // stingem led-ul de eroare
+
+		  }
+	  }
+	  else {
+		  // sistemul e OK, calculam acceleratia normal
+		  gPedal.status = PEDAL_OK;
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET ); // LED off, adica totul este ok
+
+		  // mapare liniara simpla: 0-4095 -> 0-100%
+		 	     // folosim media celor 2 senzori pentru stabilitate maxima
+
+		 	     uint32_t avg = (gPedal.filt_adc1 + gPedal.filt_adc2) / 2;
+
+		 	     // limitam la  100% (sa nu depaseasca uint8 )
+		 	     if (avg > 4095) avg = 4095;
+
+		 	     gPedal.throttle_pct = (uint8_t)((avg * 100) / 4095); // exprimam in procente ( cat la suta este apasata acceleratia )
+	  }
+
 
  }
 

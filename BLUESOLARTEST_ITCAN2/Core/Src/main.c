@@ -124,9 +124,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  Pedal_Process(); // citire , filtrare si erori
-
-	  HAL_Delay(10);
 
   }
   /* USER CODE END 3 */
@@ -282,7 +279,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 3999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 4999;
+  htim2.Init.Period = 99; //la 4999 era 500ms , iar acum la 99 este 10 ms pt intreruperi rapide pt pedala
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -378,6 +375,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){ // citim pedala prin intreruperi la 10ms, ca sa nu mai facem asta in main cu delay
+															//  pentru a nu mai intrerupe programul, fara a mai afecta siguranta
+	// verificam sa fie tim2
+
+	if(htim->Instance == TIM2){
+		Pedal_Process(); // citim pedala in backgroud
+	}
+}
+
 
 /* USER CODE END 4 */
 

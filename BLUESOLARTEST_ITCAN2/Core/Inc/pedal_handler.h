@@ -32,6 +32,8 @@ typedef struct {
 	uint8_t throttle_pct; // pozitie pedala 0-100%
 	PedalStatus_t status; // verifica daca statusul este OK (starea curenta )
 
+	bool safe_state_locked;
+
 }PedalHandler_t;
 
 
