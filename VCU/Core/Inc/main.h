@@ -45,7 +45,7 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart4;
 extern CAN_HandleTypeDef hcan1;
 extern TIM_HandleTypeDef htim2;
 
