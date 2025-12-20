@@ -40,7 +40,7 @@ void BMS0x100(const CANMSG_T CAN_MESSAGE) {
 		if (n < 0)
 			return;
 
-		if (HAL_UART_Transmit_IT(&huart1, (uint8_t*) buf, (uint16_t) n)
+		if (HAL_UART_Transmit(&huart4,(uint8_t*) buf, 96, HAL_MAX_DELAY)
 				!= HAL_OK) {
 
 			Error_Handler();
@@ -75,8 +75,8 @@ void BMS0x101(const CANMSG_T CAN_MESSAGE) {
 		if (n < 0)
 			return;
 
-		if (HAL_UART_Transmit_IT(&huart1, (uint8_t*) buf, (uint16_t) n)
-				!= HAL_OK) {
+		if (HAL_UART_Transmit(&huart4,(uint8_t*) buf, 96, HAL_MAX_DELAY)
+						!= HAL_OK) {
 
 			Error_Handler();
 		}
@@ -108,8 +108,8 @@ void BMS0x102(const CANMSG_T CAN_MESSAGE) {
 		if (n < 0)
 			return;
 
-		if (HAL_UART_Transmit_IT(&huart1, (uint8_t*) buf, (uint16_t) n)
-				!= HAL_OK) {
+		if (HAL_UART_Transmit(&huart4,(uint8_t*) buf, 96, HAL_MAX_DELAY)
+						!= HAL_OK) {
 
 			Error_Handler();
 		}
