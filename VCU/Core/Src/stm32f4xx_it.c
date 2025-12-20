@@ -55,7 +55,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern CAN_HandleTypeDef hcan1;
+extern TIM_HandleTypeDef htim2;
+extern UART_HandleTypeDef huart4;
 /* USER CODE BEGIN EV */
 
 // Importam handle-urile din main.c pentru a le folosi in intreruperi
@@ -203,38 +205,90 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
 
+/**
+  * @brief This function handles CAN1 TX interrupt.
+  */
+void CAN1_TX_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN1_TX_IRQn 0 */
+
+  /* USER CODE END CAN1_TX_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan1);
+  /* USER CODE BEGIN CAN1_TX_IRQn 1 */
+
+  /* USER CODE END CAN1_TX_IRQn 1 */
+}
+
+/**
+  * @brief This function handles CAN1 RX0 interrupt.
+  */
+void CAN1_RX0_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN1_RX0_IRQn 0 */
+
+  /* USER CODE END CAN1_RX0_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan1);
+  /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
+
+  /* USER CODE END CAN1_RX0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles CAN1 RX1 interrupt.
+  */
+void CAN1_RX1_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN1_RX1_IRQn 0 */
+
+  /* USER CODE END CAN1_RX1_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan1);
+  /* USER CODE BEGIN CAN1_RX1_IRQn 1 */
+
+  /* USER CODE END CAN1_RX1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles CAN1 SCE interrupt.
+  */
+void CAN1_SCE_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN1_SCE_IRQn 0 */
+
+  /* USER CODE END CAN1_SCE_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan1);
+  /* USER CODE BEGIN CAN1_SCE_IRQn 1 */
+
+  /* USER CODE END CAN1_SCE_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM2 global interrupt.
+  */
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles UART4 global interrupt.
+  */
+void UART4_IRQHandler(void)
+{
+  /* USER CODE BEGIN UART4_IRQn 0 */
+
+  /* USER CODE END UART4_IRQn 0 */
+  HAL_UART_IRQHandler(&huart4);
+  /* USER CODE BEGIN UART4_IRQn 1 */
+
+  /* USER CODE END UART4_IRQn 1 */
+}
+
 /* USER CODE BEGIN 1 */
-
-// --- Intreruperi adaptate pentru STM32F446RE ---
-
-// USART1 - Numele e la fel, dar folosim huart1
-void USART1_IRQHandler(void) {
-	HAL_UART_IRQHandler(&huart1);
-}
-
-// TIM2 - Numele e la fel
-void TIM2_IRQHandler(void) {
-	HAL_TIM_IRQHandler(&htim2);
-}
-
-// CAN1 TX - Pe F4 are vector dedicat (nu USB_HP...)
-void CAN1_TX_IRQHandler(void) {
-	HAL_CAN_IRQHandler(&hcan1);
-}
-
-// CAN1 RX0 - Pe F4 are vector dedicat (nu USB_LP...)
-void CAN1_RX0_IRQHandler(void) {
-	HAL_CAN_IRQHandler(&hcan1);
-}
-
-// CAN1 RX1 - Pentru FIFO1 (daca vei folosi vreodata)
-void CAN1_RX1_IRQHandler(void) {
-	HAL_CAN_IRQHandler(&hcan1);
-}
-
-// CAN1 SCE (Status Change Error)
-void CAN1_SCE_IRQHandler(void) {
-	HAL_CAN_IRQHandler(&hcan1);
-}
 
 /* USER CODE END 1 */
