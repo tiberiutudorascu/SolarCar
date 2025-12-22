@@ -34,7 +34,7 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 
-#include "candispatch.h"
+#include <bms-candispatch.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -51,6 +51,9 @@ extern TIM_HandleTypeDef htim2;
 
 // Exportam variabila globala de mesaj CAN
 extern CANMSG_T CAN_MESSAGE;
+extern SystemMode_t RUN_MODE;
+
+
 
 /* USER CODE END EC */
 
