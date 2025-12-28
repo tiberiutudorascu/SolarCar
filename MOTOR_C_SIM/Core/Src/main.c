@@ -136,8 +136,8 @@ int main(void)
 		  uint8_t motor_data[8];
 		  Motor_Prepare_Data(motor_data, &gPedal);
 
-		  // trimitem pe CAN (  ID 0x050 - Silixcon Control  )
-		  CAN_TX(0x050, 8, motor_data);
+		  // trimitem pe CAN (  ID 0x5ff - Silixcon Control  )
+		  CAN_TX(0x5FF, 8, motor_data);
 
 		  //  resetam flagul
 		  timer_20ms_flag = 0;
