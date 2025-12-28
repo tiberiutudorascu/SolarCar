@@ -52,6 +52,8 @@ extern TIM_HandleTypeDef htim2;
 // Exportam variabila globala de mesaj CAN
 extern CANMSG_T CAN_MESSAGE;
 extern SystemMode_t RUN_MODE;
+extern BMS_t BMS;
+
 
 
 

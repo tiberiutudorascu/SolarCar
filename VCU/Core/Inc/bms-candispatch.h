@@ -115,19 +115,6 @@
     CLS_CCL_TEMPERATURE | CLS_CCL_HIGH_CELL_VOLTAGE | CLS_CCL_HIGH_PACK_VOLTAGE | \
     CLS_CCL_CHARGER_LATCH | CLS_CCL_ALT_CURRENT_LIMIT_MPI )
 
-typedef struct {
-	bool is_dcl_limited;
-	bool is_ccl_limited;
-	bool relay_state_fault;
-
-	uint16_t dcl_reasons;
-	uint16_t ccl_reasons;
-	uint8_t relay_reasons;
-	uint8_t flag_0;
-	uint8_t flag_1;
-	uint8_t flag_2;
-
-} LimitAnalysis_t;
 
 
 #define RELAY_STATE_DISCHARGE_ENABLED        (1u << 0)  // Bit 1: Discharge relay enabled
@@ -142,6 +129,20 @@ typedef struct {
 RELAY_STATE_MIL_ACTIVE | RELAY_STATE_MP_INPUT_ACTIVE | RELAY_STATE_ALWAYS_ON_ACTIVE | RELAY_STATE_IS_READY | RELAY_STATE_IS_CHARGING)
 
 typedef struct {
+	bool is_dcl_limited;
+	bool is_ccl_limited;
+	bool relay_state_fault;
+
+	uint16_t dcl_reasons;
+	uint16_t ccl_reasons;
+	uint8_t relay_reasons;
+	uint8_t flag_0;
+	uint8_t flag_1;
+	uint8_t flag_2;
+
+} LimitAnalysis_t;
+
+typedef struct {
 	uint16_t id;
 	uint8_t dlc;
 	uint8_t data[8];
@@ -152,6 +153,32 @@ typedef enum {
 	DEBUG_MODE, TEST_MODE_UART_1, TEST_MODE_UART_2
 } SystemMode_t;
 
+
+typedef struct __attribute__((packed)){
+	int8_t BMSstart;
+	int16_t BMSpackVoltage;
+	int16_t BMSpackCurrent;
+	uint8_t BMSsoc;
+	uint8_t BMSsoh;
+	uint8_t BMSamphours;
+
+	int8_t BMShighTemperature;
+	int8_t BMShighTermID;
+	int8_t BMSlowTemperature;
+	uint8_t BMSlowTermID;
+	uint8_t BMSaverageTemp;
+	int8_t BMSfanSpeed;
+	int8_t BMSfanVoltage;
+
+	uint16_t BMSpackResistance;
+	int16_t BMSmaxPackVoltage;
+	uint8_t BMStotalPackCycles;
+	int8_t  BMSinternalTemp;
+	uint8_t BMSreqFanSpeed;
+	int8_t BMSend;
+
+
+}BMS_t;
 // Constante
 static const float VOLT_CURR_SCALE = 0.1f;     // 1 LSB = 0.1 V
 static const float SOC_SCALE = 0.5f;           // 1 LSB = 0.5 %
@@ -181,10 +208,10 @@ static inline uint16_t le16u(const uint8_t *p) {
 LimitAnalysis_t analyze_current_limit_causes(uint16_t raw_status_ccl,
 		uint8_t raw_relay_state);
 bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE);
-void BMS0x100(const CANMSG_T CAN_MESSAGE);
-void BMS0x101(const CANMSG_T CAN_MESSAGE);
-void BMS0x102(const CANMSG_T CAN_MESSAGE);
-void BMS0x010(const CANMSG_T CAN_MESSAGE);
+BMS_t BMS0x100(const CANMSG_T CAN_MESSAGE);
+BMS_t BMS0x101(const CANMSG_T CAN_MESSAGE);
+BMS_t BMS0x102(const CANMSG_T CAN_MESSAGE);
+BMS_t BMS0x010(const CANMSG_T CAN_MESSAGE);
 
 
 
