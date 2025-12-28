@@ -3,17 +3,6 @@
   ******************************************************************************
   * @file           : main.h
   * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -27,11 +16,12 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f1xx_hal.h"
+#include "stm32f1xx_hal.h"  // <--- ASTA E CRITIC! Aduce toate definitiile HAL
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdbool.h> // <--- ADAUGAT pentru 'bool'
+#include <stdint.h>  // <--- ADAUGAT pentru 'uint8_t'
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -41,6 +31,11 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
+
+/* Exportam handle-urile pentru a fi vazute in alte fisiere */
+extern ADC_HandleTypeDef hadc1;
+extern CAN_HandleTypeDef hcan;
+extern TIM_HandleTypeDef htim2;
 
 /* USER CODE END EC */
 
