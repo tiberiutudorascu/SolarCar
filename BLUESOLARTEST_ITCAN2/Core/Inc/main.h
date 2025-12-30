@@ -27,6 +27,8 @@
 extern UART_HandleTypeDef huart;
 extern CAN_HandleTypeDef hcan;
 extern TIM_HandleTypeDef htim2;
+extern ADC_HandleTypeDef hadc1;
+
 
 typedef struct {
 	uint16_t id;
@@ -46,7 +48,7 @@ extern "C" {
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_hal_tim.h"
 #include "stm32f1xx_hal_def.h"
-#include "candispatch.h"
+
 
 
 

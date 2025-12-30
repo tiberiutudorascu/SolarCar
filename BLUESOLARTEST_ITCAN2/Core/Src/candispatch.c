@@ -1,6 +1,8 @@
+#include "candispatch.h"
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 bool CRC_CHECKSUM(const CANMSG_T *CAN_MESSAGE) {
 
