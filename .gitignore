@@ -1,0 +1,49 @@
+# ---------------------------------
+# STM32CubeIDE / Eclipse Build Output
+# ---------------------------------
+Debug/
+Release/
+build/
+bin/
+
+# ---------------------------------
+# Compiled Binaries & Intermediates
+# (Just in case they are outside build folders)
+# ---------------------------------
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+*.lss
+*.o
+*.obj
+*.d
+*.su
+*.srec
+
+# ---------------------------------
+# IDE Specific Files
+# ---------------------------------
+# We ignore settings that might be specific to your PC path
+.settings/
+.metadata/
+*.launch
+
+# We usually KEEP .cproject and .project so the IDE recognizes the project
+# But we ignore the CubeMX generated project file tracking
+.mxproject
+
+# ---------------------------------
+# OS System Files (Junk)
+# ---------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*_archive.zip
+
+# ---------------------------------
+# Backup files
+# ---------------------------------
+*.bak
+*.tmp
