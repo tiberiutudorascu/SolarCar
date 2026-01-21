@@ -211,7 +211,7 @@ int main(void)
 			  tick_1000ms = 0;
 		  }
 
-		  // Resetam flag-ul principal si asteptam urmatoarea intrerupere
+		  // resetez flagul principal si astept urmatoarea intrerupere
 		  timer_20ms_flag = 0;
 	  }
   }

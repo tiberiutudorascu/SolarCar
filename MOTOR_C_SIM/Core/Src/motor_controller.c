@@ -22,10 +22,10 @@ void Sim_Status_0x600(uint8_t *buffer) {
     buffer[0] = 10;
 
     // Byte 1: LYNX Mode ( CRITIC!)
-    // 0x03  = Operational (running) ; daca trimitem 0, VCU va crede ca motorul nu functioneaza
+    // 0x03  = Operational (running) ; daca trimitem 0, VCU crede ca motorul nu functioneaza
     buffer[1] = 0x03;
 
-    // Byte 4-5: Driver Limit (0xFFFF = Fara limita)
+    // Byte 4-5: Driver Limit (   0xFFFF =  Fara limita  )
     buffer[4] = 0xFF;
     buffer[5] = 0xFF;
 }
