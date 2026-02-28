@@ -1,0 +1,638 @@
+2026-02-23 22:57:22,413 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 830492488 Bytes (1073741824)
+2026-02-23 22:57:23,438 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 853036872 Bytes (1073741824)
+2026-02-23 22:57:24,972 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 887726256 Bytes (1073741824)
+2026-02-23 22:57:25,403 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-23 22:57:25,403 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: DMA
+2026-02-23 22:57:25,403 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 22:57:25,403 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 22:57:25,404 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-23 22:57:25,404 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-23 22:57:25,404 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-23 22:57:25,404 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CAN
+2026-02-23 22:57:25,404 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-23 22:57:25,406 [INFO] CodeGenerator:892 - code generatio: config db path: C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.15.0.202507011659\\db\
+2026-02-23 22:57:25,412 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-23 22:57:25,412 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 22:57:25,412 [INFO] Argument:325 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 22:57:25,412 [INFO] Argument:335 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 22:57:25,412 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-23 22:57:25,412 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 22:57:25,412 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 22:57:25,413 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-23 22:57:25,413 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-23 22:57:25,414 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-23 22:57:25,415 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-23 22:57:25,519 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp_save
+2026-02-23 22:57:25,871 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp
+2026-02-23 22:57:25,937 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp_save
+2026-02-23 22:57:26,095 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp
+2026-02-23 22:57:26,459 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp_save
+2026-02-23 22:57:26,617 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp
+2026-02-23 22:57:26,635 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp_save
+2026-02-23 22:57:26,715 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp
+2026-02-23 22:57:26,734 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c_save
+2026-02-23 22:57:27,071 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c
+2026-02-23 22:57:27,091 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h_save
+2026-02-23 22:57:27,203 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h
+2026-02-23 22:57:27,235 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c_save
+2026-02-23 22:57:27,530 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c
+2026-02-23 22:57:27,549 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp_save
+2026-02-23 22:57:27,650 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp
+2026-02-23 22:57:27,684 [INFO] CodeEngine:321 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h_save
+2026-02-23 22:57:27,943 [INFO] CodeEngine:345 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h
+2026-02-23 22:57:27,984 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-23 22:57:27,986 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-23 22:57:28,001 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h_save
+2026-02-23 22:57:28,313 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h
+2026-02-23 22:57:28,356 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c_save
+2026-02-23 22:57:28,591 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c
+2026-02-23 22:57:29,067 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 270mS.
+2026-02-23 22:57:29,071 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-23 22:57:29,161 [INFO] ConfigFileManager:1595 - The Die is : DIE410
+2026-02-23 22:57:30,612 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 1540mS.
+2026-02-23 22:57:30,615 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 22:57:30,622 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 23:06:32,805 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 715820496 Bytes (1073741824)
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: DMA
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CAN
+2026-02-23 23:06:33,029 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-23 23:06:33,029 [INFO] CodeGenerator:892 - code generatio: config db path: C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.15.0.202507011659\\db\
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-23 23:06:33,029 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-23 23:06:33,029 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:06:33,029 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-23 23:06:33,029 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-23 23:06:33,045 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-23 23:06:33,185 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp_save
+2026-02-23 23:06:33,310 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp
+2026-02-23 23:06:33,342 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp_save
+2026-02-23 23:06:33,498 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp
+2026-02-23 23:06:33,670 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp_save
+2026-02-23 23:06:33,842 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp
+2026-02-23 23:06:33,842 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp_save
+2026-02-23 23:06:33,904 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp
+2026-02-23 23:06:33,920 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c_save
+2026-02-23 23:06:34,095 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c
+2026-02-23 23:06:34,103 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h_save
+2026-02-23 23:06:34,178 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h
+2026-02-23 23:06:34,194 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c_save
+2026-02-23 23:06:34,382 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c
+2026-02-23 23:06:34,397 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp_save
+2026-02-23 23:06:34,452 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp
+2026-02-23 23:06:34,469 [INFO] CodeEngine:321 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h_save
+2026-02-23 23:06:34,620 [INFO] CodeEngine:345 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h
+2026-02-23 23:06:34,656 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-23 23:06:34,657 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-23 23:06:34,668 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h_save
+2026-02-23 23:06:34,792 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h
+2026-02-23 23:06:34,808 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c_save
+2026-02-23 23:06:34,988 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c
+2026-02-23 23:06:35,355 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 189mS.
+2026-02-23 23:06:35,359 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-23 23:06:35,445 [INFO] ConfigFileManager:1595 - The Die is : DIE410
+2026-02-23 23:06:36,696 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 1337mS.
+2026-02-23 23:06:36,697 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 23:06:36,702 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 23:34:31,347 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 751238144 Bytes (1073741824)
+2026-02-23 23:34:32,586 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 772611096 Bytes (1073741824)
+2026-02-23 23:34:40,116 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 809837592 Bytes (1073741824)
+2026-02-23 23:34:40,839 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-23 23:34:40,840 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: DMA
+2026-02-23 23:34:40,840 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:34:40,840 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:34:40,840 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-23 23:34:40,841 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-23 23:34:40,841 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-23 23:34:40,841 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CAN
+2026-02-23 23:34:40,842 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-23 23:34:40,844 [INFO] CodeGenerator:892 - code generatio: config db path: C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.15.0.202507011659\\db\
+2026-02-23 23:34:40,850 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-23 23:34:40,850 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:34:40,850 [INFO] Argument:325 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:34:40,851 [INFO] Argument:335 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:34:40,851 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-23 23:34:40,851 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:34:40,851 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:34:40,851 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:34:40,851 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:34:40,852 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:34:40,852 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:34:40,852 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:34:40,852 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:34:40,852 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:34:40,852 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:34:40,852 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:34:40,852 [INFO] Argument:325 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:34:40,852 [INFO] Argument:335 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:34:40,852 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:34:40,853 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:34:40,853 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:34:40,853 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-23 23:34:40,854 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-23 23:34:41,193 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp_save
+2026-02-23 23:34:41,512 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp
+2026-02-23 23:34:41,566 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp_save
+2026-02-23 23:34:41,752 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp
+2026-02-23 23:34:42,071 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp_save
+2026-02-23 23:34:42,215 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp
+2026-02-23 23:34:42,226 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp_save
+2026-02-23 23:34:42,314 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp
+2026-02-23 23:34:42,334 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c_save
+2026-02-23 23:34:42,714 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c
+2026-02-23 23:34:42,723 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h_save
+2026-02-23 23:34:42,802 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h
+2026-02-23 23:34:42,823 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c_save
+2026-02-23 23:34:43,094 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c
+2026-02-23 23:34:43,112 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp_save
+2026-02-23 23:34:43,187 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp
+2026-02-23 23:34:43,209 [INFO] CodeEngine:321 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h_save
+2026-02-23 23:34:43,403 [INFO] CodeEngine:345 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h
+2026-02-23 23:34:43,436 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-23 23:34:43,437 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-23 23:34:43,453 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h_save
+2026-02-23 23:34:43,651 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h
+2026-02-23 23:34:43,661 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c_save
+2026-02-23 23:34:43,866 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c
+2026-02-23 23:34:44,320 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 236mS.
+2026-02-23 23:34:44,325 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-23 23:34:44,459 [INFO] ConfigFileManager:1595 - The Die is : DIE410
+2026-02-23 23:34:46,429 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 2103mS.
+2026-02-23 23:34:46,430 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 23:34:46,435 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-23 23:47:17,599 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,600 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,600 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,600 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,600 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,600 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,601 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,601 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,601 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,601 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,611 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,649 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,650 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,650 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,650 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,650 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:17,656 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:23,716 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,450x244,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:47:24,989 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,990 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,990 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,991 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,991 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,991 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,992 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,992 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,992 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:24,993 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:47:25,005 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,697 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,698 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,698 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,698 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,699 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:48:57,710 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:11,653 [INFO] SpinnerEditorADC:65 - is string kkkk
+2026-02-23 23:49:14,922 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:49:15,088 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:49:15,220 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:49:15,365 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:49:15,412 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,417 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,418 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,419 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,428 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,428 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:15,429 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,388 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,388 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,392 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,392 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,392 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,392 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,393 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,394 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,394 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,394 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,394 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,394 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,395 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,395 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,395 [INFO] ADCParametersView:116 -        *      Rank 2 : false
+2026-02-23 23:49:37,405 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,405 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,405 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,407 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,408 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,415 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,417 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,417 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,417 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,423 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,423 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,423 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,425 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,425 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,428 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,428 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,428 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,428 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,429 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,430 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,437 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,437 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,437 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,439 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,440 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,443 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,443 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,443 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,443 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,444 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,445 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,451 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,452 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,452 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,453 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,454 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,457 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,458 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,458 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,458 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,458 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:37,462 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,463 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-23 23:49:37,463 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:45,520 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:49:45,520 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-23 23:49:46,703 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:49:46,703 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,350 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,350 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,352 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,353 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,358 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,359 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,359 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,360 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,360 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,362 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,363 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,370 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,370 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,370 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,372 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,372 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,376 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,377 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,382 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,383 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,383 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,384 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,384 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,386 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,387 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,387 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,387 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,392 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,392 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,392 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,394 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,394 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,397 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,397 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,398 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,399 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:13,405 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,406 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:13,406 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,093 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-23 23:50:25,168 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,169 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,171 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,172 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,173 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:25,181 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,181 [INFO] ADCParametersView:116 -                Rank 1 : true
+2026-02-23 23:50:25,181 [INFO] ADCParametersView:116 -                Rank 2 : true
+2026-02-23 23:50:38,891 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 698319112 Bytes (1073741824)
+2026-02-23 23:50:40,402 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 722436360 Bytes (1073741824)
+2026-02-23 23:50:41,872 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 760185096 Bytes (1073741824)
+2026-02-23 23:50:42,124 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: DMA
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8F1
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CAN
+2026-02-23 23:50:42,125 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-23 23:50:42,127 [INFO] CodeGenerator:892 - code generatio: config db path: C:\ST\STM32CubeIDE_1.19.0\STM32CubeIDE\plugins\com.st.stm32cube.common.mx_6.15.0.202507011659\\db\
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-23 23:50:42,133 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:50:42,133 [INFO] Argument:335 - Argument : Instancevalue: DMA1_Channel1
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-23 23:50:42,133 [INFO] Argument:327 - 	 sub Args: 
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:50:42,133 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:50:42,133 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:50:42,133 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-23 23:50:42,133 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:50:42,133 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : Modevalue: DMA_CIRCULAR
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:50:42,134 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-23 23:50:42,135 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-23 23:50:42,215 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp_save
+2026-02-23 23:50:42,545 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\license.tmp
+2026-02-23 23:50:42,580 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp_save
+2026-02-23 23:50:42,785 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\gpio.tmp
+2026-02-23 23:50:43,013 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp_save
+2026-02-23 23:50:43,194 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma.tmp
+2026-02-23 23:50:43,202 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp_save
+2026-02-23 23:50:43,282 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\dma_GV.tmp
+2026-02-23 23:50:43,301 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c_save
+2026-02-23 23:50:43,673 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_it.c
+2026-02-23 23:50:43,681 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h_save
+2026-02-23 23:50:43,767 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_it.h
+2026-02-23 23:50:43,786 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c_save
+2026-02-23 23:50:44,030 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\stm32f1xx_hal_msp.c
+2026-02-23 23:50:44,047 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp_save
+2026-02-23 23:50:44,108 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\MXTmpFiles\system.tmp
+2026-02-23 23:50:44,125 [INFO] CodeEngine:321 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h_save
+2026-02-23 23:50:44,294 [INFO] CodeEngine:345 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\stm32f1xx_hal_conf.h
+2026-02-23 23:50:44,327 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-23 23:50:44,328 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-23 23:50:44,341 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h_save
+2026-02-23 23:50:44,512 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Inc\main.h
+2026-02-23 23:50:44,521 [INFO] CodeEngine:265 - oldGeneratedFile, C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c_save
+2026-02-23 23:50:44,695 [INFO] CodeEngine:289 - Generated code: C:\SOLARCAR_LV\GitHub\OvidiuMPPT\MPPT_SIM\Core\Src\main.c
+2026-02-23 23:50:45,171 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 205mS.
+2026-02-23 23:50:45,176 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-23 23:50:45,273 [INFO] ConfigFileManager:1595 - The Die is : DIE410
+2026-02-23 23:50:46,462 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 1286mS.
+2026-02-23 23:50:46,463 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 1mS.
+2026-02-23 23:50:46,468 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.

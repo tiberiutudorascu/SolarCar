@@ -1,0 +1,10 @@
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
+LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST_ITCAN Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST_ITCAN2 Debug (1),org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPPT_Receiver_Status Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST_ITCAN2 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPPT_SIM Debug
+eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST\ Debug/activeLaunchMode=run
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST\ Debug/activeLaunchTarget=null\:---
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BLUESOLARTEST_ITCAN2\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPPT_Receiver_Status\ Debug/activeLaunchMode=debug
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPPT_SIM\ Debug/activeLaunchMode=run

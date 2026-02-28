@@ -1,0 +1,414 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : MPPT Controller - STM32F103C8
+  *                   Structura identica cu MOTOR_C_SIM (pedala)
+  *                   Timer 20ms, CAN TX pe 0x630 si 0x631
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <stdbool.h>
+/* USER CODE END Includes */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define PWM_MIN          50
+#define PWM_MAX          680
+#define V_MAX_CRITIC     30.0f
+#define I_MAX_CRITIC     20.0f
+#define V_DIVIDER_RATIO  11.0f
+#define I_SENSITIVITY    0.066f
+#define I_OFFSET         1.65f
+/* USER CODE END PD */
+
+/* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef  hadc1;
+DMA_HandleTypeDef  hdma_adc1;
+CAN_HandleTypeDef  hcan;
+TIM_HandleTypeDef  htim1;
+TIM_HandleTypeDef  htim2;
+UART_HandleTypeDef huart1;
+
+/* USER CODE BEGIN PV */
+uint16_t          adc_buffer[2];
+volatile float    V_panou        = 0.0f;
+volatile float    I_panou        = 0.0f;
+volatile float    P_panou        = 0.0f;
+float             V_veche        = 0.0f;
+float             P_veche        = 0.0f;
+volatile uint16_t pwm_value      = 350;
+volatile uint8_t  mppt_status_code = 0;   // 0=OK, 1=OV, 2=OC
+uint8_t           TxData[8];
+char              uart_buf[128];
+volatile bool     timer_20ms_flag = 0;    // identic cu pedala
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_TIM2_Init(void);
+static void MX_CAN_Init(void);
+static void MX_USART1_UART_Init(void);
+
+/* USER CODE BEGIN PFP */
+void CAN_TX(uint32_t StdId, uint32_t DLC, const uint8_t *Data);
+static void MPPT_Process(void);
+static void MPPT_Pack_0x630(uint8_t *buf);
+static void MPPT_Pack_0x631(uint8_t *buf);
+/* USER CODE END PFP */
+
+/* USER CODE BEGIN 0 */
+
+/**
+ * @brief CAN TX — identic cu pedala, Error_Handler comentat
+ */
+void CAN_TX(uint32_t StdId, uint32_t DLC, const uint8_t *Data) {
+    CAN_TxHeaderTypeDef txheader;
+    uint32_t txmailbox;
+    txheader.DLC                = DLC;
+    txheader.StdId              = StdId;
+    txheader.IDE                = CAN_ID_STD;
+    txheader.RTR                = CAN_RTR_DATA;
+    txheader.TransmitGlobalTime = DISABLE;
+    if (HAL_CAN_AddTxMessage(&hcan, &txheader, Data, &txmailbox) != HAL_OK) {
+        // Error_Handler(); // Comentat: previne blocarea daca VCU nu e inca pornit
+    }
+}
+
+/**
+ * @brief Proceseaza ADC, protectii si P&O
+ */
+static void MPPT_Process(void) {
+    V_panou = ((float)adc_buffer[0] * (3.3f / 4095.0f)) * V_DIVIDER_RATIO;
+    I_panou = (((float)adc_buffer[1] * (3.3f / 4095.0f)) - I_OFFSET) / I_SENSITIVITY;
+    if (I_panou < 0.0f) I_panou = 0.0f;
+    P_panou = V_panou * I_panou;
+
+    static uint8_t error_count = 0;
+
+    if (V_panou > V_MAX_CRITIC) {
+        mppt_status_code = 1;
+        pwm_value = PWM_MIN;
+        error_count = 0;
+    } else if (I_panou > I_MAX_CRITIC) {
+        if (++error_count > 5) {
+            mppt_status_code = 2;
+            pwm_value = PWM_MIN;
+        }
+    } else {
+        mppt_status_code = 0;
+        error_count = 0;
+        if (P_panou < 0.1f) {
+            pwm_value++;
+        } else {
+            float deltaP = P_panou - P_veche;
+            float deltaV = V_panou - V_veche;
+            if      (deltaP >  0.1f) { if (deltaV >= 0.0f) pwm_value--; else pwm_value++; }
+            else if (deltaP < -0.1f) { if (deltaV >= 0.0f) pwm_value++; else pwm_value--; }
+        }
+    }
+
+    if (pwm_value < PWM_MIN) pwm_value = PWM_MIN;
+    if (pwm_value > PWM_MAX) pwm_value = PWM_MAX;
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, pwm_value);
+
+    V_veche = V_panou;
+    P_veche = P_panou;
+}
+
+/**
+ * @brief CAN 0x630 — date principale MPPT catre VCU (4 bytes)
+ *   [0] = V * 10   (ex: 245 = 24.5V)
+ *   [1] = I * 10   (ex:  85 =  8.5A)
+ *   [2] = P / 2    (ex: 104 = 208W)
+ *   [3] = status   (0=OK, 1=OV, 2=OC)
+ */
+static void MPPT_Pack_0x630(uint8_t *buf) {
+    buf[0] = (uint8_t)(V_panou * 10.0f > 255.0f ? 255 : V_panou * 10.0f);
+    buf[1] = (uint8_t)(I_panou * 10.0f > 255.0f ? 255 : I_panou * 10.0f);
+    buf[2] = (uint8_t)(P_panou /  2.0f > 255.0f ? 255 : P_panou /  2.0f);
+    buf[3] = mppt_status_code;
+}
+
+/**
+ * @brief CAN 0x631 — date extinse MPPT (4 bytes, rezolutie mai mare)
+ *   [0-1] = V * 100 uint16 big-endian (ex: 2450 = 24.50V)
+ *   [2-3] = I * 100 uint16 big-endian (ex:  850 =  8.50A)
+ */
+static void MPPT_Pack_0x631(uint8_t *buf) {
+    uint16_t v100 = (uint16_t)(V_panou * 100.0f);
+    uint16_t i100 = (uint16_t)(I_panou * 100.0f);
+    buf[0] = (v100 >> 8) & 0xFF;
+    buf[1] =  v100       & 0xFF;
+    buf[2] = (i100 >> 8) & 0xFF;
+    buf[3] =  i100       & 0xFF;
+}
+
+/**
+ * @brief Callback Timer — identic cu pedala
+ */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == TIM2) {
+        timer_20ms_flag = 1;
+    }
+}
+
+/* USER CODE END 0 */
+
+/* ============================================================
+ * MAIN
+ * ============================================================ */
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_DMA_Init();
+    MX_ADC1_Init();
+    MX_TIM1_Init();
+    MX_TIM2_Init();
+    MX_CAN_Init();
+    MX_USART1_UART_Init();
+
+    /* USER CODE BEGIN 2 */
+
+    // 1. Filtru CAN
+    CAN_FilterTypeDef sf = {0};
+    sf.FilterBank           = 0;
+    sf.FilterMode           = CAN_FILTERMODE_IDMASK;
+    sf.FilterScale          = CAN_FILTERSCALE_32BIT;
+    sf.FilterIdHigh         = 0x0000;
+    sf.FilterIdLow          = 0x0000;
+    sf.FilterMaskIdHigh     = 0x0000;
+    sf.FilterMaskIdLow      = 0x0000;
+    sf.FilterFIFOAssignment = CAN_RX_FIFO0;
+    sf.FilterActivation     = ENABLE;
+    HAL_CAN_ConfigFilter(&hcan, &sf);
+
+    // 2. Pornire CAN — Start INAINTE de ActivateNotification (identic pedala)
+    if (HAL_CAN_Start(&hcan) != HAL_OK) {
+        Error_Handler();
+    }
+    HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+
+    // 3. ADC + DMA
+    HAL_ADCEx_Calibration_Start(&hadc1);
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, 2);
+
+    // 4. PWM
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, pwm_value);
+
+    // 5. Timer 20ms
+    HAL_TIM_Base_Start_IT(&htim2);
+
+    // 6. Boot UART
+    const char *boot = "\r\n=== MPPT BOOT OK ===\r\n";
+    HAL_UART_Transmit(&huart1, (uint8_t*)boot, 24, 100);
+
+    // Contoare timp — identic cu pedala
+    uint8_t tick_100ms = 0;
+    uint8_t tick_500ms = 0;
+
+    /* USER CODE END 2 */
+
+    /* ============================================================
+     * WHILE(1) — structura identica cu pedala
+     * ============================================================ */
+    while (1)
+    {
+        if (timer_20ms_flag == 1) {
+
+            // 1. Proceseaza MPPT (ADC + protectii + P&O + PWM)
+            MPPT_Process();
+
+            // 2. Incrementare contoare
+            tick_100ms++;
+            tick_500ms++;
+
+            // --- 100ms: CAN 0x630 catre VCU ---
+            if (tick_100ms >= 5) {
+                MPPT_Pack_0x630(TxData);
+                CAN_TX(0x630, 4, TxData);
+                HAL_GPIO_TogglePin(LED_STARE_GPIO_Port, LED_STARE_Pin);
+                tick_100ms = 0;
+            }
+
+            // --- 500ms: CAN 0x631 + UART catre PuTTY ---
+            if (tick_500ms >= 25) {
+                MPPT_Pack_0x631(TxData);
+                CAN_TX(0x631, 4, TxData);
+
+                int len = snprintf(uart_buf, sizeof(uart_buf),
+                    "V:%.2f I:%.2f P:%.2f PWM:%d ST:%d\r\n",
+                    V_panou, I_panou, P_panou,
+                    pwm_value, mppt_status_code);
+                HAL_UART_Transmit(&huart1, (uint8_t*)uart_buf, len, 10);
+
+                tick_500ms = 0;
+            }
+
+            // 3. Reset flag
+            timer_20ms_flag = 0;
+        }
+    }
+}
+
+/* ============================================================
+ * INITIALIZARI PERIFERICE
+ * ============================================================ */
+
+void SystemClock_Config(void) {
+    RCC_OscInitTypeDef RCC_OscInitStruct   = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct   = {0};
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+    RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState            = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_HSI_DIV2;
+    RCC_OscInitStruct.PLL.PLLMUL          = RCC_PLL_MUL8;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) Error_Handler();
+    RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                     | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) Error_Handler();
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+    PeriphClkInit.AdcClockSelection    = RCC_ADCPCLK2_DIV4;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) Error_Handler();
+}
+
+static void MX_ADC1_Init(void) {
+    ADC_ChannelConfTypeDef sConfig = {0};
+    hadc1.Instance                   = ADC1;
+    hadc1.Init.ScanConvMode          = ADC_SCAN_ENABLE;
+    hadc1.Init.ContinuousConvMode    = ENABLE;
+    hadc1.Init.DiscontinuousConvMode = DISABLE;
+    hadc1.Init.ExternalTrigConv      = ADC_SOFTWARE_START;
+    hadc1.Init.DataAlign             = ADC_DATAALIGN_RIGHT;
+    hadc1.Init.NbrOfConversion       = 2;
+    if (HAL_ADC_Init(&hadc1) != HAL_OK) Error_Handler();
+    sConfig.Channel      = ADC_CHANNEL_0;
+    sConfig.Rank         = ADC_REGULAR_RANK_1;
+    sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
+    if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) Error_Handler();
+    sConfig.Channel      = ADC_CHANNEL_1;
+    sConfig.Rank         = ADC_REGULAR_RANK_2;
+    if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK) Error_Handler();
+}
+
+static void MX_CAN_Init(void) {
+    hcan.Instance                  = CAN1;
+    hcan.Init.Prescaler            = 4;
+    hcan.Init.Mode                 = CAN_MODE_NORMAL;
+    hcan.Init.SyncJumpWidth        = CAN_SJW_1TQ;
+    hcan.Init.TimeSeg1             = CAN_BS1_13TQ; // 32MHz/4/(1+13+2) = 500kbps
+    hcan.Init.TimeSeg2             = CAN_BS2_2TQ;
+    hcan.Init.TimeTriggeredMode    = DISABLE;
+    hcan.Init.AutoBusOff           = DISABLE;
+    hcan.Init.AutoWakeUp           = DISABLE;
+    hcan.Init.AutoRetransmission   = DISABLE;
+    hcan.Init.ReceiveFifoLocked    = DISABLE;
+    hcan.Init.TransmitFifoPriority = DISABLE;
+    if (HAL_CAN_Init(&hcan) != HAL_OK) Error_Handler();
+}
+
+static void MX_TIM1_Init(void) {
+    TIM_OC_InitTypeDef sConfigOC                  = {0};
+    TIM_MasterConfigTypeDef sMasterConfig         = {0};
+    TIM_BreakDeadTimeConfigTypeDef sBreakDeadTime = {0};
+    htim1.Instance               = TIM1;
+    htim1.Init.Prescaler         = 0;
+    htim1.Init.CounterMode       = TIM_COUNTERMODE_UP;
+    htim1.Init.Period            = 719;
+    htim1.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
+    htim1.Init.RepetitionCounter = 0;
+    htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+    if (HAL_TIM_PWM_Init(&htim1) != HAL_OK) Error_Handler();
+    sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+    sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_DISABLE;
+    if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK) Error_Handler();
+    sConfigOC.OCMode       = TIM_OCMODE_PWM1;
+    sConfigOC.Pulse        = 350;
+    sConfigOC.OCPolarity   = TIM_OCPOLARITY_HIGH;
+    sConfigOC.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
+    sConfigOC.OCFastMode   = TIM_OCFAST_DISABLE;
+    sConfigOC.OCIdleState  = TIM_OCIDLESTATE_RESET;
+    sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+    if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK) Error_Handler();
+    sBreakDeadTime.OffStateRunMode  = TIM_OSSR_DISABLE;
+    sBreakDeadTime.OffStateIDLEMode = TIM_OSSI_DISABLE;
+    sBreakDeadTime.LockLevel        = TIM_LOCKLEVEL_OFF;
+    sBreakDeadTime.DeadTime         = 0;
+    sBreakDeadTime.BreakState       = TIM_BREAK_DISABLE;
+    sBreakDeadTime.BreakPolarity    = TIM_BREAKPOLARITY_HIGH;
+    sBreakDeadTime.AutomaticOutput  = TIM_AUTOMATICOUTPUT_DISABLE;
+    if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTime) != HAL_OK) Error_Handler();
+    HAL_TIM_MspPostInit(&htim1);
+}
+
+static void MX_TIM2_Init(void) {
+    TIM_ClockConfigTypeDef  sClockSourceConfig = {0};
+    TIM_MasterConfigTypeDef sMasterConfig      = {0};
+    htim2.Instance               = TIM2;
+    htim2.Init.Prescaler         = 319;   // 32MHz / 320 = 100kHz
+    htim2.Init.CounterMode       = TIM_COUNTERMODE_UP;
+    htim2.Init.Period            = 1999;  // 100kHz / 2000 = 50Hz = 20ms
+    htim2.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
+    htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+    if (HAL_TIM_Base_Init(&htim2) != HAL_OK) Error_Handler();
+    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) Error_Handler();
+    sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+    sMasterConfig.MasterSlaveMode     = TIM_MASTERSLAVEMODE_DISABLE;
+    if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK) Error_Handler();
+}
+
+static void MX_USART1_UART_Init(void) {
+    huart1.Instance          = USART1;
+    huart1.Init.BaudRate     = 115200;
+    huart1.Init.WordLength   = UART_WORDLENGTH_8B;
+    huart1.Init.StopBits     = UART_STOPBITS_1;
+    huart1.Init.Parity       = UART_PARITY_NONE;
+    huart1.Init.Mode         = UART_MODE_TX_RX;
+    huart1.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+    huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+    if (HAL_UART_Init(&huart1) != HAL_OK) Error_Handler();
+}
+
+static void MX_DMA_Init(void) {
+    __HAL_RCC_DMA1_CLK_ENABLE();
+}
+
+static void MX_GPIO_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    HAL_GPIO_WritePin(LED_STARE_GPIO_Port, LED_STARE_Pin, GPIO_PIN_SET);
+    GPIO_InitStruct.Pin   = LED_STARE_Pin;
+    GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull  = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED_STARE_GPIO_Port, &GPIO_InitStruct);
+}
+
+void Error_Handler(void) {
+    __disable_irq();
+    while (1) {}
+}
+
+#ifdef USE_FULL_ASSERT
+void assert_failed(uint8_t *file, uint32_t line) {}
+#endif

@@ -1,0 +1,10 @@
+21:16:08 **** Incremental Build of configuration Debug for project MPPT_SIM ****
+make -j8 all 
+arm-none-eabi-size  MPPT_SIM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  34440	    472	   5520	  40432	   9df0	MPPT_SIM.elf
+Finished building: default.size.stdout
+ 
+
+21:16:08 Build Finished. 0 errors, 0 warnings. (took 327ms)
+
